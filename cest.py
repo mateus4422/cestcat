@@ -47,8 +47,6 @@ def search_cest(data, cest_code):
     else:
         columns = ['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']
         return pd.DataFrame(columns=columns)
-
-
 def export_result(result_df):
     csv = result_df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
@@ -61,7 +59,8 @@ st.set_page_config(page_title="Pesquisa de CEST", page_icon=":mag:")
 st.header("Upload de arquivos")
 st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
-uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
+uploaded_files = st.sidebar.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
+
 
 if uploaded_files:
 
