@@ -3,6 +3,7 @@ import pandas as pd
 import base64
 import os
 
+
 def save_uploaded_files(uploaded_files):
     file_paths = []
     for file in uploaded_files:
@@ -11,12 +12,14 @@ def save_uploaded_files(uploaded_files):
         file_paths.append(os.path.join(file.name))
     return file_paths
 
+
 def load_data(file_paths):
     data = {}
     for file_path in file_paths:
         sheets = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
         data[file_path] = sheets
     return data
+
 
 def search_cest(data, cest_code):
     result = []
@@ -45,14 +48,15 @@ def search_cest(data, cest_code):
         columns = ['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']
         return pd.DataFrame(columns=columns)
 
+
 def export_result(result_df):
     csv = result_df.to_csv(index=False)
     b64 = base64.b64encode(csv.encode()).decode()
     href = f'<a href="data:file/csv;base64,{b64}" download="resultado.csv">Exportar resultado</a>'
     st.markdown(href, unsafe_allow_html=True)
 
-st.set_page_config(page_title="Pesquisa de CEST", page_icon=":mag:")
 
+st.set_page_config(page_title="Pesquisa de CEST", page_icon=":mag:")
 
 st.header("Upload de arquivos")
 st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
@@ -64,19 +68,14 @@ if uploaded_files:
     file_paths = save_uploaded_files(uploaded_files)
     data = load_data(file_paths)
 
-
     cest_code = st.text_input("Digite o código CEST")
     if st.button("Pesquisar"):
         search_result = search_cest(data, cest_code)
         if not search_result.empty:
             st.dataframe(search_result)
 
-
             export_result(search_result)
         else:
-            st.warning("Nenhum resultado encontrado para o código CEST informado.")
+            st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
-    st.markdown("---")
-
-    st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
