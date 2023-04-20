@@ -52,7 +52,7 @@ def cest ():
             columns = ['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']
             return pd.DataFrame(columns=columns)
 
-    def export_result(result_df):
+       def export_result(result_df):
         csv = result_df.to_csv(index=False)
         b64 = base64.b64encode(csv.encode()).decode()
         href = f'<a href="data:file/csv;base64,{b64}" download="resultado.csv">Exportar resultado</a>'
@@ -69,16 +69,17 @@ def cest ():
         data = load_data(file_paths)
 
         cest_code = st.text_input("Digite o código CEST")
-            if st.button("Pesquisar"):
-        search_result = search_cest(data, cest_code)
-        if not search_result.empty:
-            st.dataframe(search_result)
+        if st.button("Pesquisar"):
+            search_result = search_cest(data, cest_code)
+            if not search_result.empty:
+                st.dataframe(search_result)
 
-            export_result(search_result)
-        else:
-            st.write("Nenhum resultado encontrado para o código CEST informado.")
+                export_result(search_result)
+            else:
+                st.write("Nenhum resultado encontrado para o código CEST informado.")
 
-st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
+    st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
 cest()
+
 
