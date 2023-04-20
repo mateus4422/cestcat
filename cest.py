@@ -75,4 +75,3 @@ def cest():
                 st.write("Nenhum resultado encontrado")
 
     st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")  
-
