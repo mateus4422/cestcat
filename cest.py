@@ -59,8 +59,7 @@ def cest():
     st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
     uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
-
-    if uploaded_files:
+        if uploaded_files:
                file_paths = save_uploaded_files(uploaded_files)
         data = load_data(file_paths)
 
