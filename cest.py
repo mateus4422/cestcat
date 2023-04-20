@@ -61,4 +61,18 @@ def cest():
     uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
 
     if uploaded_files:
-        file_paths
+               file_paths = save_uploaded_files(uploaded_files)
+        data = load_data(file_paths)
+
+        cest_code = st.text_input("Digite o código CEST")
+        if st.button("Pesquisar"):
+            search_result = search_cest(data, cest_code)
+            if not search_result.empty:
+                st.dataframe(search_result)
+
+                export_result(search_result)
+            else:
+                st.write("Nenhum resultado encontrado")
+
+    st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")  
+
