@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 import os
 
-def cest():
+def cest ():
     def save_uploaded_files(uploaded_files):
         file_paths = []
         for file in uploaded_files:
@@ -12,12 +12,14 @@ def cest():
             file_paths.append(os.path.join(file.name))
         return file_paths
 
+
     def load_data(file_paths):
         data = {}
         for file_path in file_paths:
             sheets = pd.read_excel(file_path, sheet_name=None, engine='openpyxl')
             data[file_path] = sheets
         return data
+
 
     def search_cest(data, cest_code):
         result = []
@@ -38,11 +40,7 @@ def cest():
             final_df['aliquota'] = final_df['Unnamed: 12'] * 100
             final_df = final_df[['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']]
             final_df = final_df.sort_values('Data', ascending=False)
-
-            # Excluir linhas com valores iguais a zero nas colunas "MVA ST 1" e "aliquota"
-            final_df = final_df[(final_df['MVA ST 1'] != 0) & (final_df['aliquota'] != 0)]
-
-            final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']] / 100
+            final_df[['MVA ST 1', 'aliquota']] /= 100
             final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']].applymap('{:.2%}'.format)
             final_df = final_df[['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']]
             return final_df
@@ -59,8 +57,10 @@ def cest():
     st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
     uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
-        if uploaded_files:
-               file_paths = save_uploaded_files(uploaded_files)
+
+    if uploaded_files:
+
+        file_paths = save_uploaded_files(uploaded_files)
         data = load_data(file_paths)
 
         cest_code = st.text_input("Digite o código CEST")
@@ -71,6 +71,6 @@ def cest():
 
                 export_result(search_result)
             else:
-                st.write("Nenhum resultado encontrado")
+                st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
-    st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")  
+
