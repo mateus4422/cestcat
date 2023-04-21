@@ -1,4 +1,5 @@
 import streamlit as st
+from pdf2image import convert_from_path
 from reg1100 import cat1100
 from Manual import exibir_pdf
 from cest import cest
