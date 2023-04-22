@@ -27,6 +27,7 @@ def fatorconversao():
             file_content = file_content.decode(char_encoding, errors='ignore').encode('latin-1')
 
 
+
         file_like = io.BytesIO(file_content)
         lines = file_like.readlines()
         data = []
