@@ -70,23 +70,21 @@ def c100_c170():
 
     st.title("Extrator de Registros C100 e C170")
 
-  uploaded_files = st.file_uploader("Selecione um ou mais arquivos EFD (TXT e Latin-1):", type="txt", accept_multiple_files=True)
+    uploaded_file = st.file_uploader("Selecione o arquivo EFD (TXT e Latin-1):", type="txt")
 
-if uploaded_files is not None:
-    for uploaded_file in uploaded_files:
+    if uploaded_file is not None:
         file_bytes = io.BytesIO(uploaded_file.getbuffer())
         file_text = file_bytes.read().decode("latin-1")
         file_lines = file_text.splitlines()
         df_combined = extract_records(file_lines, "latin-1")
         df_combined = rename_columns(df_combined)
 
-        st.write(f"Registros C100 e C170 do arquivo {uploaded_file.name} com identificação do registro na primeira coluna e colunas renomeadas:")
+        st.write("Registros C100 seguidos dos registros C170 com identificação do registro na primeira coluna e colunas renomeadas:")
         st.write(df_combined)
 
-        if st.button(f"Exportar CSV do arquivo {uploaded_file.name} separado por '|'"):
+        if st.button("Exportar CSV separado por '|'"):
             # Exporta o dataframe como um arquivo CSV separado por ';'
-            csv = df_combined.to_csv(index=False, sep="|", encoding="utf-8-sig")
+            csv = df_combined.to_csv(index=False, sep=";", encoding="utf-8-sig")
             b64 = base64.b64encode(csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="{uploaded_file.name}.csv">Download do arquivo CSV</a>'
+            href = f'<a href="data:file/csv;base64,{b64}" download="dados.csv">Download do arquivo CSV</a>'
             st.markdown(href, unsafe_allow_html=True)
-
