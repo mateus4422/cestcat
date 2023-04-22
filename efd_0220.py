@@ -3,8 +3,13 @@ import pandas as pd
 import io
 import chardet
 import base64
+import random
 
-
+def my_func():
+    for i in range(10):
+        unique_id = random.randint(0, 1000)
+        st.slider(f"Slider {unique_id}", 0, 10)
+        
 def fatorconversao():
     def download_link_csv(df, filename, link_text):
         csv = df.to_csv(index=False, encoding='utf-8')
