@@ -24,7 +24,8 @@ def fatorconversao():
 
         # Converter para latin-1 se necessário
         if char_encoding != 'latin-1':
-            file_content = file_content.decode(char_encoding, errors='ignore').encode('latin-1')
+            file_content = file_content.decode(char_encoding, errors='ignore').encode('utf-8')
+
 
 
 
