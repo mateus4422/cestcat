@@ -1,10 +1,10 @@
 import streamlit as st
-from pdf2image import convert_from_path
 from reg1100 import cat1100
 from Manual import exibir_pdf
 from cest import cest
 from efd_0220 import fatorconversao
 from c100_c170 import c100_c170
+from Inventário import inventario
 
 def main():
 
@@ -39,8 +39,14 @@ def main():
         exibir_pdf()
 
     elif choice == "PRODUTOS":
-        st.subheader("Produtos - CEST")
-        cest()
+        st.subheader("Produtos")
+        produtos_options = ["Selecione uma opção", "Cest", "Inventário"]
+        produtos_choise = st.sidebar.selectbox("PRODUTOS", produtos_options)
+
+        if produtos_choise == "Cest":
+            cest()
+        elif produtos_choise == "Inventário":
+             inventario()
 
 if __name__ == "__main__":
     main()
