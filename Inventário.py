@@ -35,11 +35,11 @@ def inventario():
 
 
     def compare_dataframes(df_efd, df_cat):
-    merged_df = pd.merge(df_efd, df_cat, left_on="COD_PRODUTO_EFD", right_on="COD_PRODUTO_CAT", how="inner")
-    merged_df = merged_df[["COD_PRODUTO_EFD", "QTD_EFD", "QTD_CAT"]]
-    merged_df['COMPARACAO'] = merged_df.apply(lambda row: 'Igual' if row['QTD_EFD'] == row['QTD_CAT'] else 'Diferente', axis=1)
-    merged_df['DIFERENCA'] = merged_df['QTD_EFD'] - merged_df['QTD_CAT']  # Adicione esta linha para calcular a diferença
-    return merged_df
+     merged_df = pd.merge(df_efd, df_cat, left_on="COD_PRODUTO_EFD", right_on="COD_PRODUTO_CAT", how="inner")
+     merged_df = merged_df[["COD_PRODUTO_EFD", "QTD_EFD", "QTD_CAT"]]
+     merged_df['COMPARACAO'] = merged_df.apply(lambda row: 'Igual' if row['QTD_EFD'] == row['QTD_CAT'] else 'Diferente', axis=1)
+     merged_df['DIFERENCA'] = merged_df['QTD_EFD'] - merged_df['QTD_CAT']  # Adicione esta linha para calcular a diferença
+     return merged_df
 
 
     st.title("Comparação de Quantidades - EFD e CAT")
@@ -60,6 +60,6 @@ def inventario():
 
 
     if uploaded_efd_file and uploaded_cat_file:
-       comparison_df = compare_dataframes(df_efd, df_cat)
-       st.write("COMPARATIVO DE QUANTIDADE DA EFD E CAT:")
-       st.write(comparison_df)
+        comparison_df = compare_dataframes(df_efd, df_cat)
+        st.write("COMPARATIVO DE QUANTIDADE DA EFD E CAT:")
+        st.write(comparison_df)
