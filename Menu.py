@@ -5,6 +5,7 @@ from cest import cest
 from efd_0220 import fatorconversao
 from c100_c170 import c100_c170
 from Inventário import inventario
+from ProdST import tb_produtos
 
 def main():
 
@@ -47,6 +48,8 @@ def main():
             cest()
         elif produtos_choise == "Inventário":
              inventario()
+        elif produtos_choise == "Tabela de Produtos":
+             tb_produtos()
 
 if __name__ == "__main__":
     main()
