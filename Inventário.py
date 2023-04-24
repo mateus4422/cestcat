@@ -44,7 +44,7 @@ def inventario():
 
     st.title("Comparação de Quantidades - EFD e CAT")
 
-    uploaded_efd_file = st.file_uploader("Carregue o arquivo EFD (.txt)", type="txt")
+    uploaded_efd_file = st.file_uploader("Carregue o arquivo EFD (.txt) - O H010 normalmente se encontra no mês 02", type="txt")
     uploaded_cat_file = st.file_uploader("Carregue o arquivo CAT (.txt)", type="txt")
 
     if uploaded_efd_file:
