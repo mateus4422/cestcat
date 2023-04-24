@@ -2,6 +2,7 @@ import streamlit as st
 import pandas as pd
 import base64
 import os
+import plotly.express as px
 
 st.set_page_config(page_title="Pesquisa de CEST", page_icon=":mag:")
 
@@ -55,7 +56,12 @@ def cest ():
         href = f'<a href="data:file/csv;base64,{b64}" download="resultado.csv">Exportar resultado</a>'
         st.markdown(href, unsafe_allow_html=True)
 
-
+    def plot_mva_changes(result_df):
+        fig = px.line(result_df, x='Data', y='MVA ST 1', title='Mudanças no MVA ST 1 ao longo do tempo')
+        fig.update_traces(mode='markers+lines')
+        fig.update_xaxes(title_text='Data')
+        fig.update_yaxes(title_text='MVA ST 1', tickformat='.2%')
+        st.plotly_chart(fig)
 
     st.header("Upload de arquivos")
     st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
@@ -72,6 +78,9 @@ def cest ():
             search_result = search_cest(data, cest_code)
             if not search_result.empty:
                 st.dataframe(search_result)
+
+                # Adicione esta chamada de função logo após exibir o dataframe
+                plot_mva_changes(search_result)
 
                 export_result(search_result)
             else:
