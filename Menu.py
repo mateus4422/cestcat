@@ -41,7 +41,7 @@ def main():
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
-        produtos_options = ["Selecione uma opção", "Cest", "Inventário"]
+        produtos_options = ["Selecione uma opção", "Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
         produtos_choise = st.sidebar.selectbox("PRODUTOS", produtos_options)
 
         if produtos_choise == "Cest":
