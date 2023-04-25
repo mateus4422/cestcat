@@ -7,33 +7,28 @@ from openpyxl import load_workbook
 def altcodprod()
     # Função para ler o arquivo XLSX do link raw do GitHub
     def load_data(url):
-    response = requests.get(url)
-    content = response.content
-    xls_file = io.BytesIO(content)
-    df = pd.read_excel(xls_file, engine="openpyxl")
-    return df
+        response = requests.get(url)
+        content = response.content
+        xls_file = io.BytesIO(content)
+        df = pd.read_excel(xls_file, engine="openpyxl")
+        return df
 
-        # Carrega os dados
-        url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
-        data = load_data(url)
+    # Carrega os dados
+    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
+    data = load_data(url)
 
-        # Converte os códigos de compra e venda para inteiros
-        data['Código de Compra'] = data['Código de Compra'].astype(int)
-        data['Código de Venda'] = data['Código de Venda'].astype(int)
+    st.title("Visualização de arquivo XLSX")
 
-        st.title("Visualização de arquivo XLSX")
+    # Filtro de NCM
+    ncm_filter = st.sidebar.text_input("Filtrar por NCM:")
+    filtered_data_ncm = data[data["NCM"].astype(str).str.contains(ncm_filter)]
 
-        # Filtros na mesma janela da tabela
-        ncm_filter = st.text_input("Filtrar por NCM:")
-        ean_filter = st.text_input("Filtrar por EAN:")
+    # Filtro de EAN
+    ean_filter = st.sidebar.text_input("Filtrar por EAN:")
+    filtered_data_ean = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
 
-        # Aplica o filtro de NCM
-        if ncm_filter:
-            data = data[data["NCM"].astype(str).str.contains(ncm_filter)]
+    # Aplica os filtros
+    filtered_data = filtered_data_ncm.merge(filtered_data_ean)
 
-        # Aplica o filtro de EAN
-        if ean_filter:
-            data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
-
-        # Exibe a tabela
-        st.write(data)
+    # Exibe a tabela
+    st.write(filtered_data)
