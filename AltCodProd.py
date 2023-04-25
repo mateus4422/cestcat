@@ -4,7 +4,7 @@ import io
 import requests
 from openpyxl import load_workbook
 
-def altcodprod()
+def altcodprod():
     # Função para ler o arquivo XLSX do link raw do GitHub
     def load_data(url):
         response = requests.get(url)
