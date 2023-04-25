@@ -7,14 +7,16 @@ from openpyxl import load_workbook
 def altcodprod():
     # Função para ler o arquivo XLSX do link raw do GitHub
     def custom_converter(number_str):
-    return int(number_str.replace(',', ''))
+        return int(number_str.replace(',', ''))
 
+    # Função para ler o arquivo XLSX do link raw do GitHub
     def load_data(url):
-    response = requests.get(url)
-    content = response.content
-    xls_file = io.BytesIO(content)
-    df = pd.read_excel(xls_file, engine="openpyxl", converters={'Código de Compra': custom_converter, 'Código de Venda': custom_converter})
-    return df
+        response = requests.get(url)
+        content = response.content
+        xls_file = io.BytesIO(content)
+        df = pd.read_excel(xls_file, engine="openpyxl",
+                           converters={'Código de Compra': custom_converter, 'Código de Venda': custom_converter})
+        return df
 
     # Carrega os dados
     url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
