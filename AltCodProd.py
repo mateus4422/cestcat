@@ -4,34 +4,37 @@ import io
 import requests
 from openpyxl import load_workbook
 
-def load_data(url):
-    response = requests.get(url)
-    content = response.content
-    xls_file = io.BytesIO(content)
-    df = pd.read_excel(xls_file, engine="openpyxl")
-    return df
 
-# Carrega os dados
-url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
-data = load_data(url)
+  def altcodprod():
+       
+    def load_data(url):
+        response = requests.get(url)
+        content = response.content
+        xls_file = io.BytesIO(content)
+        df = pd.read_excel(xls_file, engine="openpyxl")
+        return df
 
-# Converte os códigos de compra e venda para inteiros
-data['Código de Compra'] = data['Código de Compra'].astype(int)
-data['Código de Venda'] = data['Código de Venda'].astype(int)
+    # Carrega os dados
+    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
+    data = load_data(url)
 
-st.title("Visualização de arquivo XLSX")
+    # Converte os códigos de compra e venda para inteiros
+    data['Código de Compra'] = data['Código de Compra'].astype(int)
+    data['Código de Venda'] = data['Código de Venda'].astype(int)
 
-# Filtros na mesma janela da tabela
-ncm_filter = st.text_input("Filtrar por NCM:")
-ean_filter = st.text_input("Filtrar por EAN:")
+    st.title("Visualização de arquivo XLSX")
 
-# Aplica o filtro de NCM
-if ncm_filter:
-    data = data[data["NCM"].astype(str).str.contains(ncm_filter)]
+    # Filtros na mesma janela da tabela
+    ncm_filter = st.text_input("Filtrar por NCM:")
+    ean_filter = st.text_input("Filtrar por EAN:")
 
-# Aplica o filtro de EAN
-if ean_filter:
-    data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
+    # Aplica o filtro de NCM
+    if ncm_filter:
+        data = data[data["NCM"].astype(str).str.contains(ncm_filter)]
 
-# Exibe a tabela
-st.write(data)
+    # Aplica o filtro de EAN
+    if ean_filter:
+        data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
+
+    # Exibe a tabela
+    st.write(data)
