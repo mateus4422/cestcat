@@ -6,7 +6,7 @@ from efd_0220 import fatorconversao
 from c100_c170 import c100_c170
 from Inventário import inventario
 from ProdST import tb_produtos
-
+from AltCodProd import  altcodprod
 def main():
 
     menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS"]
@@ -41,7 +41,7 @@ def main():
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
-        produtos_options = ["Selecione uma opção", "Cest", "Inventário", "Tabela de Produtos"]
+        produtos_options = ["Selecione uma opção", "Cest", "Inventário"]
         produtos_choise = st.sidebar.selectbox("PRODUTOS", produtos_options)
 
         if produtos_choise == "Cest":
@@ -49,7 +49,10 @@ def main():
         elif produtos_choise == "Inventário":
              inventario()
         elif produtos_choise == "Tabela de Produtos":
-             tb_produtos()
+            tb_produtos()
+        elif produtos_choise == "Tabela de Alteração de Código":
+            altcodprod()
+
 
 if __name__ == "__main__":
     main()
