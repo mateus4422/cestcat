@@ -14,7 +14,7 @@ def altcodprod():
     return df
 
 # Carrega os dados
-url = "INSIRA_AQUI_O_SEU_LINK_RAW_DO_GITHUB"
+url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
 data = load_data(url)
 
 # Converte os códigos de compra e venda para inteiros
