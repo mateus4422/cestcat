@@ -22,7 +22,7 @@ def altcodprod():
     url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
     data = load_data(url)
 
-    st.title("Visualização de arquivo XLSX")
+    st.title("Alteração de Código do Produto")
 
     # Filtros na mesma janela da tabela
     ncm_filter = st.text_input("Filtrar por NCM:")
