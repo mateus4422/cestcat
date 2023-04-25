@@ -10,16 +10,12 @@ def altcodprod():
         response = requests.get(url)
         content = response.content
         xls_file = io.BytesIO(content)
-        df = pd.read_excel(xls_file, engine="openpyxl")
+        df = pd.read_excel(xls_file, engine="openpyxl", converters={'Código de Compra': int, 'Código de Venda': int})
         return df
 
     # Carrega os dados
     url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20código.xlsx"
     data = load_data(url)
-
-    # Converte os códigos de compra e venda para inteiros
-    data['Código de Compra'] = data['Código de Compra'].astype(int)
-    data['Código de Venda'] = data['Código de Venda'].astype(int)
 
     st.title("Visualização de arquivo XLSX")
 
