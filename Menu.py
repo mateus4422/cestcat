@@ -6,8 +6,9 @@ from efd_0220 import fatorconversao
 from c100_c170 import c100_c170
 from Inventário import inventario
 from ProdST import tb_produtos
-from AltCodProd import  altcodprod
-from AnáliseFiscal import  analisefiscal
+from AltCodProd import altcodprod
+from AnáliseFiscal import analisefiscal
+
 def main():
 
     menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "ANÁLISE FISCAL"]
@@ -43,26 +44,24 @@ def main():
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
         produtos_options = ["Selecione uma opção", "Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
-        produtos_choise = st.sidebar.selectbox("PRODUTOS", produtos_options)
+        produtos_choice = st.sidebar.selectbox("PRODUTOS", produtos_options)
 
-        if produtos_choise == "Cest":
+        if produtos_choice == "Cest":
             cest()
-        elif produtos_choise == "Inventário":
+        elif produtos_choice == "Inventário":
              inventario()
-        elif produtos_choise == "Tabela de Produtos":
+        elif produtos_choice == "Tabela de Produtos":
             tb_produtos()
-        elif produtos_choise == "Tabela de Alteração de Código":
+        elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
 
     elif choice == "ANÁLISE FISCAL":
          st.subheader("Análise Fiscal")
          analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
-         analisefiscal_choise = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
+         analisefiscal_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
 
-        if analisefiscal_choise == "Análise Fiscal":
-           analisefiscal()
-
-
+        if analisefiscal_choice == "Análise Fiscal":
+            analisefiscal()
 
 if __name__ == "__main__":
     main()
