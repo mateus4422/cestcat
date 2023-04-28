@@ -8,7 +8,7 @@ from openpyxl import load_workbook
 st.title("Análise Fiscal")
 
 # Solicitar o link raw do arquivo do GitHub
-url = st.text_input("https://github.com/mateus4422/cestcat/raw/cestcat/Cabecalho_Analise.xlsx"
+url = st.text_input("https://github.com/mateus4422/cestcat/raw/cestcat/Cabecalho_Analise.xlsx")
 
 def analisefiscal():
     def load_xlsx_from_url(url):
