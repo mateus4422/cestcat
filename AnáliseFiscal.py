@@ -1,23 +1,30 @@
 import streamlit as st
 from openpyxl import load_workbook
+from io import BytesIO
+import requests
 
-# Título da aplicação
-st.title("Análise Fiscal")
+def analisefiscal():
+    # Título da aplicação
+    st.title("Análise Fiscal")
 
-# Solicitar o link raw do arquivo do GitHub
-url = st.text_input("https://github.com/mateus4422/cestcat/raw/cestcat/Cabeçalho_Análise.xlsx")
+    # Nome do arquivo da planilha
+    file_name = "Cabeçalho_Análise.xlsx"
 
+    # Montar a URL do arquivo no GitHub
+    url = f"https://github.com/mateus4422/cestcat/raw/cestcat/{file_name}"
 
-# Carregar e exibir a planilha xlsx
-if url:
     try:
+        # Fazer o download do arquivo usando a biblioteca requests
         response = requests.get(url)
-        wb = load_workbook(filename=BytesIO(response.content))
+        content = response.content
+
+        # Carregar a planilha usando a biblioteca openpyxl
+        wb = load_workbook(filename=BytesIO(content), read_only=True)
         ws = wb.active
-        rows = list(ws.rows)
-        data = []
-        for row in rows:
-            data.append([cell.value for cell in row])
+
+        # Ler os dados da planilha e exibi-los no Streamlit
+        data = [[cell.value for cell in row] for row in ws.iter_rows()]
         st.table(data)
+
     except Exception as e:
         st.error(f"Erro ao carregar o arquivo xlsx: {e}")
