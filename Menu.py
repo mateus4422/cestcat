@@ -7,13 +7,14 @@ from c100_c170 import c100_c170
 from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import  altcodprod
+from AnáliseFiscal import  analisefiscal
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS"]
+    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "ANÁLISE FISCAL"]
     choice = st.sidebar.selectbox("Menu", menu_options)
 
     if choice == "CAT":
-        cat_options = ["Selecione uma opção", "Registro 1100", "Outros"]
+        cat_options = ["Selecione uma opção", "Registro 1100"]
         cat_choice = st.sidebar.selectbox("CAT", cat_options)
 
         if cat_choice == "Registro 1100":
@@ -52,6 +53,15 @@ def main():
             tb_produtos()
         elif produtos_choise == "Tabela de Alteração de Código":
             altcodprod()
+
+    elif choice == "ANÁLISE FISCAL":
+         st.subheader("Análise Fiscal")
+         analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
+         analisefiscal_choise = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
+
+        if analisefiscal_choise == "Análise Fiscal":
+           analisefiscal()
+
 
 
 if __name__ == "__main__":
