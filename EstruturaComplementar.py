@@ -1,56 +1,63 @@
-import streamlit as st
 import pandas as pd
-import io
-import requests
-import clipboard
+import numpy as np
+import streamlit as st
 
-def estruturacomplementar():# Função para carregar o arquivo do GitHub
-    def carregar_github_raw(url):
-        data = requests.get(url).content
-        return pd.read_excel(io.BytesIO(data))
-
-    # Função para converter valores para inteiros, tratando NaN e valores vazios
+def e struturacomplementar():
     def converter_para_inteiro(x):
-        if pd.isna(x) or str(x).strip() == '':
+        if pd.isna(x):
             return None
         else:
             return int(str(x).replace('.', '').replace(',', ''))
 
-    # URL do arquivo raw do GitHub
-    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Cabeçalho%20Complementar%20-%20PROCFIT.xlsx"
-    df_git = carregar_github_raw(url)
+    def estruturacomplementar():
+        # Lendo arquivo do GitHub
+        url = "https://github.com/mateus4422/cestcat/raw/cestcat/Cabeçalho%20Complementar%20-%20PROCFIT.xlsx"
+        df_git = pd.read_excel(url)
 
-    st.write("## Tabela do GitHub")
-    st.write(df_git)
+        # Carregando arquivo do usuário
+        arquivo_local = st.file_uploader("Selecione o arquivo a ser carregado:", type=["xlsx"])
 
-    file = st.file_uploader("Carregar arquivo xlsx", type=["xlsx"])
+        if arquivo_local is not None:
+            df_local = pd.read_excel(arquivo_local)
 
-    if file:
-        df_local = pd.read_excel(file)
+            # Concatenando DataFrames
+            df_concatenado = pd.concat([df_git, df_local], ignore_index=True)
 
-        # Removendo vírgulas e convertendo para números inteiros nos campos 4 e 8
-        campos_para_converter = [3, 8]  # Os índices são baseados em 0, então 3 representa o campo 4 e 8 representa o campo "Registro Anvisa Origem NFE"
-        for campo in campos_para_converter:
-            df_local.iloc[:, campo] = df_local.iloc[:, campo].apply(converter_para_inteiro)
+            # Verificando se o DataFrame precisa ser dividido em partes menores
+            if len(df_concatenado) > 20000:
+                df_split = np.array_split(df_concatenado, len(df_concatenado) // 20000 + 1)
+                for i, df in enumerate(df_split):
+                    st.write(f"Parte {i+1}")
+                    st.write(df)
 
-        # Preenchendo a tabela
-        df_final = df_git.append(df_local, ignore_index=True)
+            else:
+                # Mostrando DataFrame
+                st.write(df_concatenado)
 
-        st.write("## Tabela carregada e preenchida")
-        st.write(df_final)
+                # Criando lista de opções de formatos
+                opcoes_formatos = ['', 'Texto', 'Moeda', 'Inteiro', 'Decimal', 'Data']
 
-        # Dividindo em DataFrames de no máximo 20 mil linhas
-        dataframes = [df_final[i:i+20000] for i in range(0, len(df_final), 20000)]
+                # Criando dicionário para mapear cada coluna ao seu formato
+                formatos = {}
+                for coluna in df_concatenado.columns:
+                    formatos[coluna] = st.selectbox(f"Escolha o formato para a coluna {coluna}", opcoes_formatos)
 
-        for i, df_split in enumerate(dataframes):
-            st.write(f"## DataFrame {i+1}")
-            st.write(df_split)
+                # Aplicando os formatos selecionados para cada coluna
+                for coluna, formato in formatos.items():
+                    if formato == 'Texto':
+                        df_concatenado[coluna] = df_concatenado[coluna].astype(str)
+                    elif formato == 'Moeda':
+                        df_concatenado[coluna] = pd.to_numeric(df_concatenado[coluna].str.replace(',', '.'), errors='coerce')
+                        df_concatenado[coluna] = df_concatenado[coluna].apply(lambda x: f"R$ {x:,.2f}" if not pd.isna(x) else None)
+                    elif formato == 'Inteiro':
+                        df_concatenado[coluna] = df_concatenado[coluna].apply(converter_para_inteiro)
+                    elif formato == 'Decimal':
+                        df_concatenado[coluna] = pd.to_numeric(df_concatenado[coluna].str.replace(',', '.'), errors='coerce')
+                    elif formato == 'Data':
+                        df_concatenado[coluna] = pd.to_datetime(df_concatenado[coluna], errors='coerce')
 
-            if st.button(f"Copiar DataFrame {i+1}"):
-                # Cria um novo DataFrame com cabeçalhos sem vírgulas
-                df_copy = df_split.copy()
-                df_copy.columns = df_copy.columns.str.replace(',', '')
+                # Mostrando DataFrame com os formatos selecionados
+                st.write(df_concatenado)
 
-                # Copia o DataFrame para a área de transferência
-                clipboard.copy(df_copy.to_csv(index=False))
-                st.success(f"DataFrame {i+1} copiado para a área de transferência")
+    if __name__ == "__main__":
+        estruturacomplementar()
