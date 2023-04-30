@@ -7,11 +7,11 @@ from c100_c170 import c100_c170
 from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
-from AnáliseFiscal import analisefiscal
+from EstruturaComplementar import estruturacomplementar
 
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "ANÁLISE FISCAL"]
+    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "ANÁLISE FISCAL", "COMPLEMENTAR"]
     choice = st.sidebar.selectbox("Menu", menu_options)
 
     if choice == "CAT":
@@ -55,13 +55,13 @@ def main():
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
 
-    elif choice == "ANÁLISE FISCAL":
-         st.subheader("Análise Fiscal")
-         analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
-         analisefiscal_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
+    elif choice == "COMPLEMENTAR":
+         st.subheader("Complementar")
+         analisefiscal_options = ["Selecione uma opção", "Estrutura Complementar - PROCFIT"]
+         analisefiscal_choice = st.sidebar.selectbox("COMPLEMENTAR", analisefiscal_options)
 
-         if analisefiscal_choice == "Análise Fiscal":
-             analisefiscal()
+         if analisefiscal_choice == "Complementar":
+             estruturacomplementar()
 
 if __name__ == "__main__":
     main()
