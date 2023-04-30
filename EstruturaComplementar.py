@@ -19,7 +19,12 @@ def estruturacomplementar():# Função para carregar o arquivo do GitHub
     file = st.file_uploader("Carregar arquivo xlsx", type=["xlsx"])
 
     if file:
-        df_local = pd.read_excel(file)
+    df_local = pd.read_excel(file).convert_dtypes()
+    
+         # Lista de índices das colunas que devem ser convertidas
+        cols_to_convert = [4, 9]
+        for col_idx in cols_to_convert:
+            df_local.iloc[:, col_idx] = df_local.iloc[:, col_idx].astype(str).str.replace(',', '').astype(int)
 
         # Preenchendo a tabela
         df_final = df_git.append(df_local, ignore_index=True)
