@@ -55,11 +55,15 @@ def estruturacomplementar ():
             st.write(f"## DataFrame {i+1}")
             st.write(df_split)
 
-            if st.button(f"Copiar DataFrame {i+1}"):
-                # Cria um novo DataFrame com cabeçalhos sem vírgulas
-                df_copy = df_split.copy()
-                df_copy.columns = df_copy.columns.str.replace(',', '')
+            if st.button(f"Baixar DataFrame {i+1}"):
+    # Cria um novo DataFrame com cabeçalhos sem vírgulas
+    df_copy = df_split.copy()
+    df_copy.columns = df_copy.columns.str.replace(',', '')
 
-                # Copia o DataFrame para a área de transferência
-                clipboard.copy(df_copy.to_csv(index=False))
-                st.success(f"DataFrame {i+1} copiado para a área de transferência")
+    # Salva o DataFrame em um arquivo CSV
+    csv = df_copy.to_csv(index=False)
+
+    # Cria um botão de download para o arquivo CSV
+    b64 = base64.b64encode(csv.encode()).decode()
+    href = f'<a href="data:file/csv;base64,{b64}" download="dataframe.csv">Baixar arquivo CSV</a>'
+    st.markdown(href, unsafe_allow_html=True)
