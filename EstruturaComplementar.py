@@ -14,7 +14,7 @@ def converter_para_inteiro(x):
     if pd.isna(x) or str(x).strip() == '':
         return None
     else:
-        return int(str(x).replace(',', ''))
+        return int(float(str(x).replace(',', '')))
 
 # URL do arquivo raw do GitHub
 url = "https://github.com/mateus4422/cestcat/raw/cestcat/Cabeçalho%20Complementar%20-%20PROCFIT.xlsx"
@@ -28,8 +28,8 @@ file = st.file_uploader("Carregar arquivo xlsx", type=["xlsx"])
 if file:
     df_local = pd.read_excel(file)
 
-    # Removendo vírgulas e convertendo para números inteiros nos campos 4 e 9
-    campos_para_converter = [3, 8]  # Os índices são baseados em 0, então 3 representa o campo 4 e 8 representa o campo 9
+    # Removendo vírgulas e convertendo para números inteiros nos campos 4 e 8
+    campos_para_converter = [3, 8]  # Os índices são baseados em 0, então 3 representa o campo 4 e 8 representa o campo "Registro Anvisa Origem NFE"
     for campo in campos_para_converter:
         df_local.iloc[:, campo] = df_local.iloc[:, campo].apply(converter_para_inteiro)
 
