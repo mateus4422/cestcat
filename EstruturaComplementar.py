@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np
 import streamlit as st
 
-def e struturacomplementar():
+def estruturacomplementar():
     def converter_para_inteiro(x):
         if pd.isna(x):
             return None
