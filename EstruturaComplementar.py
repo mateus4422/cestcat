@@ -47,7 +47,6 @@ def estruturacomplementar ():
 
         st.write("## Tabela carregada e preenchida")
         st.write(df_final)
-
         # Dividindo em DataFrames de no máximo 20 mil linhas
         dataframes = [df_final[i:i+20000] for i in range(0, len(df_final), 20000)]
 
@@ -63,3 +62,5 @@ def estruturacomplementar ():
                 # Copia o DataFrame para a área de transferência
                 clipboard.copy(df_copy.to_csv(index=False))
                 st.success(f"DataFrame {i+1} copiado para a área de transferência")
+
+estruturacomplementar()
