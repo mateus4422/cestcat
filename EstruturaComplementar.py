@@ -33,6 +33,15 @@ def estruturacomplementar ():
         for campo in campos_para_converter:
             df_local.iloc[:, campo] = df_local.iloc[:, campo].apply(converter_para_inteiro)
 
+        # Incluindo seleção de tipo de dados para cada coluna
+        tipos_dados = ['str', 'int', 'float', 'datetime64[ns]']
+        cols = df_local.columns
+        tipos_colunas = {}
+        for col in cols:
+            tipo = st.selectbox(f"Selecione o tipo de dado para a coluna {col}", tipos_dados)
+            tipos_colunas[col] = tipo
+        df_local = df_local.astype(tipos_colunas)
+
         # Preenchendo a tabela
         df_final = df_git.append(df_local, ignore_index=True)
 
