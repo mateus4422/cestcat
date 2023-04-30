@@ -14,7 +14,7 @@ def converter_para_inteiro(x):
     if pd.isna(x) or str(x).strip() == '':
         return None
     else:
-        return int(float(str(x).replace(',', '')))
+        return int(str(x).replace('.', '').replace(',', ''))
 
 # URL do arquivo raw do GitHub
 url = "https://github.com/mateus4422/cestcat/raw/cestcat/Cabeçalho%20Complementar%20-%20PROCFIT.xlsx"
