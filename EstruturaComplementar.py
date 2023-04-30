@@ -46,20 +46,20 @@ def estruturacomplementar():
 
         df_final = df_git.append(df_local, ignore_index=True)
 
-        st.write("## Tabela carregada e preenchida")
+        st.write("##Tabela Estrutural da Complementar - PROCFIT")
         st.write(df_final)
 
         dataframes = [df_final[i:i+20000] for i in range(0, len(df_final), 20000)]
 
         for i, df_split in enumerate(dataframes):
-            st.write(f"## DataFrame {i+1}")
+            st.write(f"## Tabela {i+1}")
             st.write(df_split)
 
-            if st.button(f"Copiar DataFrame {i+1}"):
+            if st.button(f"Gerar Download  {i+1}"):
                 df_copy = df_split.copy()
                 df_copy.columns = df_copy.columns.str.replace(',', '')
 
-                link = download_link(df_copy, f"dataframe_{i+1}.csv", f"Clique aqui para baixar o DataFrame {i+1}")
+                link = download_link(df_copy, f"dataframe_{i+1}.csv", f"Clique aqui para baixar a tabela {i+1}")
                 st.markdown(link, unsafe_allow_html=True)
 
 estruturacomplementar()
