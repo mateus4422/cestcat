@@ -22,8 +22,7 @@ def estruturacomplementar():# Função para carregar o arquivo do GitHub
         df_local = pd.read_excel(file)
 
         # Removendo vírgulas e convertendo para números inteiros nos campos 4 e 9
-        campos_para_converter = [3,
-                                 8]  # Os índices são baseados em 0, então 3 representa o campo 4 e 8 representa o campo 9
+        campos_para_converter = [4,9]  # Os índices são baseados em 0, então 3 representa o campo 4 e 8 representa o campo 9
         for campo in campos_para_converter:
             df_local.iloc[:, campo] = df_local.iloc[:, campo].apply(lambda x: int(str(x).replace(',', '')))
 
