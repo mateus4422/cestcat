@@ -3,6 +3,7 @@ import pandas as pd
 import base64
 import os
 import plotly.express as px
+import datetime
 
 st.set_page_config(page_title="Pesquisa de CEST", page_icon=":mag:")
 
