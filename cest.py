@@ -94,6 +94,7 @@ def cest():
                 else:
                     st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
-   
+              cest()
+
 
 
