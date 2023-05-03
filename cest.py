@@ -95,6 +95,7 @@ def cest():
                     st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
     if __name__ == "__main__":
-    cest()
+    main()
+
 
 
