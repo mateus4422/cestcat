@@ -41,11 +41,14 @@ def cest():
             final_df.loc[:, 'Data'] = final_df['Arquivo'].str.replace('.xlsx', '').str.replace('.', '/')
             final_df.loc[:, 'Data'] = pd.to_datetime(final_df['Data'], format='%d/%m/%Y')
 
-            mva_columns = find_columns(final_df, 'MVA')
+            mva_columns = find_columns(final_df, 'MVA-ST 1')
+            if not mva_columns:
+                mva_columns = find_columns(final_df, 'MVA')
             if mva_columns:
-                final_df.loc[:, 'MVA ST 1'] = final_df[mva_columns[0]] * 100
+                final_df['MVA ST 1'] = final_df[mva_columns[0]] * 100
             else:
-                final_df.loc[:, 'MVA ST 1'] = None
+                final_df['MVA ST 1'] = None
+
 
             aliquota_columns = find_columns(final_df, 'aliquota')
             if aliquota_columns:
