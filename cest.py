@@ -43,8 +43,9 @@ def cest ():
             final_df['aliquota'] = final_df['Unnamed: 12'] * 100
             final_df = final_df[['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']]
             final_df = final_df.sort_values('Data', ascending=False)
-            final_df['MVA ST 1'] = final_df['MVA ST 1'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
-            final_df['aliquota'] = final_df['aliquota'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
+            final_df['MVA ST 1'] = final_df['MVA ST 1'].apply(lambda x: '{:.2%}'.format(x) if isinstance(x, (int, float)) else x)
+            final_df['aliquota'] = final_df['aliquota'].apply(lambda x: '{:.2%}'.format(x) if isinstance(x, (int, float)) else x)
+
 
 
             final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']].applymap('{:.2%}'.format)
