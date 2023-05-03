@@ -55,7 +55,8 @@ def cest():
 
             final_df.loc[:, 'MVA ST 1'] = final_df['MVA ST 1'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
             final_df.loc[:, 'aliquota'] = final_df['aliquota'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
-            final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']].applymap('{:.2%}'.format)
+            final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']].applymap(lambda x: '{:.2%}'.format(x) if x is not None else None)
+
             final_df = final_df[['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']]
             return final_df
         else:
