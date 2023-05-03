@@ -31,30 +31,30 @@ def cest():
             for sheet_name, df in sheets.items():
                 matching_rows = df[df.apply(lambda row: row.astype(str).str.contains(cest_code).any(), axis=1)]
                 if not matching_rows.empty:
-                    matching_rows['Arquivo'] = os.path.basename(file_path)
-                    matching_rows['CEST'] = cest_code
-                    matching_rows['Categoria'] = sheet_name
+                    matching_rows.loc[:, 'Arquivo'] = os.path.basename(file_path)
+                    matching_rows.loc[:, 'CEST'] = cest_code
+                    matching_rows.loc[:, 'Categoria'] = sheet_name
                     result.append(matching_rows)
 
         if result:
             final_df = pd.concat(result, ignore_index=True)
-            final_df['Data'] = final_df['Arquivo'].str.replace('.xlsx', '').str.replace('.', '/')
-            final_df['Data'] = pd.to_datetime(final_df['Data'], format='%d/%m/%Y')
+            final_df.loc[:, 'Data'] = final_df['Arquivo'].str.replace('.xlsx', '').str.replace('.', '/')
+            final_df.loc[:, 'Data'] = pd.to_datetime(final_df['Data'], format='%d/%m/%Y')
 
             mva_columns = find_columns(final_df, 'MVA')
             if mva_columns:
-                final_df['MVA ST 1'] = final_df[mva_columns[0]] * 100
+                final_df.loc[:, 'MVA ST 1'] = final_df[mva_columns[0]] * 100
             else:
-                final_df['MVA ST 1'] = None
+                final_df.loc[:, 'MVA ST 1'] = None
 
             aliquota_columns = find_columns(final_df, 'aliquota')
             if aliquota_columns:
-                final_df['aliquota'] = final_df[aliquota_columns[0]] * 100
+                final_df.loc[:, 'aliquota'] = final_df[aliquota_columns[0]] * 100
             else:
-                final_df['aliquota'] = None
+                final_df.loc[:, 'aliquota'] = None
 
-            final_df['MVA ST 1'] = final_df['MVA ST 1'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
-            final_df['aliquota'] = final_df['aliquota'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
+            final_df.loc[:, 'MVA ST 1'] = final_df['MVA ST 1'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
+            final_df.loc[:, 'aliquota'] = final_df['aliquota'].apply(lambda x: x / 100 if isinstance(x, (int, float)) else x)
             final_df[['MVA ST 1', 'aliquota']] = final_df[['MVA ST 1', 'aliquota']].applymap('{:.2%}'.format)
             final_df = final_df[['Data', 'Categoria', 'CEST', 'MVA ST 1', 'aliquota']]
             return final_df
@@ -68,14 +68,14 @@ def cest():
         href = f'<a href="data:file/csv;base64,{b64}" download="resultado.csv">Exportar resultado</a>'
         st.markdown(href, unsafe_allow_html=True)
 
-        def plot_mva_changes(result_df):
-            fig = px.line(result_df, x='Data', y='MVA ST 1', title='Mudanças no MVA ST 1 ao longo do tempo')
-            fig.update_traces(mode='markers+lines')
-            fig.update_xaxes(title_text='Data')
-            fig.update_yaxes(title_text='MVA ST 1', tickformat='.2%')
-            st.plotly_chart(fig)
+    def plot_mva_changes(result_df):
+        fig = px.line(result_df, x='Data', y='MVA ST 1', title='Mudanças no MVA ST 1 ao longo do tempo')
+        fig.update_traces(mode='markers+lines')
+        fig.update_xaxes(title_text='Data')
+        fig.update_yaxes(title_text='MVA ST 1', tickformat='.2%')
+        st.plotly_chart(fig)
 
-        st.header("Upload de arquivos")
+    st.header("Upload de arquivos")
     st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
     uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
@@ -94,6 +94,5 @@ def cest():
             else:
                 st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
-     
-
+cest()
 
