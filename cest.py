@@ -75,24 +75,24 @@ def cest():
             fig.update_yaxes(title_text='MVA ST 1', tickformat='.2%')
             st.plotly_chart(fig)
 
-        st.header("Upload de arquivos")
-        st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
+         st.header("Upload de arquivos")
+    st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
-        uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
 
-        if uploaded_files:
-            file_paths = save_uploaded_files(uploaded_files)
-            data = load_data(file_paths)
+    if uploaded_files:
+        file_paths = save_uploaded_files(uploaded_files)
+        data = load_data(file_paths)
 
-            cest_code = st.text_input("Digite o código CEST")
-            if st.button("Pesquisar"):
-                search_result = search_cest(data, cest_code)
-                if not search_result.empty:
-                    st.dataframe(search_result)
-                    plot_mva_changes(search_result)
-                    export_result(search_result)
-                else:
-                    st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
+        cest_code = st.text_input("Digite o código CEST")
+        if st.button("Pesquisar"):
+            search_result = search_cest(data, cest_code)
+            if not search_result.empty:
+                st.dataframe(search_result)
+                plot_mva_changes(search_result)
+                export_result(search_result)
+            else:
+                st.write("Desenvolvido por [Mateus Ramos](https://www.linkedin.com/in/mateusramosb/)")
 
      
 
