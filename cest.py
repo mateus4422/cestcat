@@ -34,11 +34,12 @@ def cest():
                     matching_rows.loc[:, 'Arquivo'] = os.path.basename(file_path)
                     matching_rows.loc[:, 'CEST'] = cest_code
                     matching_rows.loc[:, 'Categoria'] = sheet_name
+
                     result.append(matching_rows)
 
         if result:
             final_df = pd.concat(result, ignore_index=True)
-            final_df.loc[:, 'Data'] = final_df['Arquivo'].str.replace('.xlsx', '').str.replace('.', '/')
+            final_df['Data'] = final_df['Arquivo'].str.replace('.xlsx', '', regex=True).str.replace('.', '/', regex=True)
             final_df.loc[:, 'Data'] = pd.to_datetime(final_df['Data'], format='%d/%m/%Y')
 
             mva_columns = find_columns(final_df, 'MVA-ST 1')
@@ -82,7 +83,8 @@ def cest():
     st.header("Upload de arquivos")
     st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
 
-    uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
+    uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True, key="unique_key")
+
 
     if uploaded_files:
         file_paths = save_uploaded_files(uploaded_files)
