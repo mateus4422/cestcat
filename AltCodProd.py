@@ -27,8 +27,16 @@ def altcodprod():
     # Filtros na mesma janela da tabela
     ncm_filter = st.text_input("Filtrar por NCM:")
     ean_filter = st.text_input("Filtrar por EAN:")
-    cod_venda_filter = st.text_input("Filtrar por Código de Venda:")
-    cod_compra_filter = st.text_input("Filtrar por Código de Compra:")
+    cod_venda_format = st.text_input("Formato do Código de Venda (Ex: ###-#####):")
+    cod_compra_format = st.text_input("Formato do Código de Compra (Ex: #####):")
+
+    # Formatação do Código de Venda
+    if cod_venda_format:
+        data["Código de Venda"] = data["Código de Venda"].apply(lambda x: format(int(x), cod_venda_format) if pd.notnull(x) else "")
+
+    # Formatação do Código de Compra
+    if cod_compra_format:
+        data["Código de Compra"] = data["Código de Compra"].apply(lambda x: format(int(x), cod_compra_format) if pd.notnull(x) else "")
 
     # Aplica o filtro de NCM
     if ncm_filter:
@@ -37,14 +45,6 @@ def altcodprod():
     # Aplica o filtro de EAN
     if ean_filter:
         data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
-    
-    # Aplica o filtro de Código de Venda
-    if cod_venda_filter:
-        data = data[data["Código de Venda"].astype(str).str.contains(cod_venda_filter)]
-    
-    # Aplica o filtro de Código de Compra
-    if cod_compra_filter:
-        data = data[data["Código de Compra"].astype(str).str.contains(cod_compra_filter)]
 
     # Exibe a tabela
     st.write(data)
