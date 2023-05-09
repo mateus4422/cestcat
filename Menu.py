@@ -63,14 +63,14 @@ def main():
 
          if complementar_choice == "Estrutura Complementar - PROCFIT":
              estruturacomplementar()
-            
+
     elif choice == "ANÁLISE FISCAL":
          st.subheader("Análise Fiscal")
          analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
          analisefiscal_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
 
          if analisefiscal_choice == "Análise Fiscal":
-             estruturacomplementar()
+            cabecalhoanalise()
 
 if __name__ == "__main__":
     main()
