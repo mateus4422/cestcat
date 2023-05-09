@@ -8,7 +8,7 @@ from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from EstruturaComplementar import estruturacomplementar
-from AnaliseFiscal import cabecalhoanalise
+from AnáliseFiscal import cabecalhoanalise
 
 def main():
 
