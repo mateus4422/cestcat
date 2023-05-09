@@ -8,6 +8,7 @@ from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from EstruturaComplementar import estruturacomplementar
+from AnaliseFiscal import cabecalhoanalise
 
 def main():
 
@@ -61,6 +62,14 @@ def main():
          complementar_choice = st.sidebar.selectbox("COMPLEMENTAR", complementar_options)
 
          if complementar_choice == "Estrutura Complementar - PROCFIT":
+             estruturacomplementar()
+            
+    elif choice == "ANÁLISE FISCAL":
+         st.subheader("Análise Fiscal")
+         analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
+         analisefiscal_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
+
+         if analisefiscal_choice == "Análise Fiscal":
              estruturacomplementar()
 
 if __name__ == "__main__":
