@@ -12,7 +12,7 @@ from AnáliseFiscal import analisefiscal
 
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR"]
+    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR", "ANÁLISE FISCAL"]
     choice = st.sidebar.selectbox("Menu", menu_options)
 
     if choice == "CAT":
@@ -66,10 +66,10 @@ def main():
 
     elif choice == "ANÁLISE FISCAL":
          st.subheader("Análise Fiscal")
-         analisefiscal_options = ["Selecione uma opção", "Análise Fiscal"]
-          analisefiscal_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal_options)
+         analisefiscal2_options = ["Selecione uma opção", "Análise Fiscal"]
+          analisefiscal2_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal2_options)
 
-         if analisefiscal_choice == "Análise Fiscal":
+         if analisefiscal2_choice == "Análise Fiscal":
              analisefiscal()
  
 if __name__ == "__main__":
