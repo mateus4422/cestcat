@@ -70,7 +70,7 @@ def main():
          analise_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analise_options)
 
          if analise_choice == "Análise Fiscal":
-         analisefiscal()
+             analisefiscal()
 
  
 if __name__ == "__main__":
