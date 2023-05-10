@@ -66,10 +66,10 @@ def main():
 
     elif choice == "ANÁLISE FISCAL":
          st.subheader("Análise Fiscal")
-         analisefiscal2_options = ["Selecione uma opção", "Análise Fiscal"]
-          analisefiscal2_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analisefiscal2_options)
+         analise_options = ["Selecione uma opção", "Análise Fiscal - CAT"]
+          analise_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analise_options)
 
-         if analisefiscal2_choice == "Análise Fiscal":
+         if analise_choice == "Análise Fiscal":
              analisefiscal()
  
 if __name__ == "__main__":
