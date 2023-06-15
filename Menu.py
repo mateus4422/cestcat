@@ -1,6 +1,5 @@
 import streamlit as st
 from reg1100 import cat1100
-from Manual import exibir_pdf
 from cest import cest
 from efd_0220 import fatorconversao
 from c100_c170 import c100_c170
@@ -11,7 +10,7 @@ from aliquota import tb_aliquota
 
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR","ALÍQUOTA"]
+    menu_options = ["CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR","ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
@@ -29,9 +28,6 @@ def main():
         elif efd_choice == "C100-C170":
             c100_c170()
 
-    elif choice == "MANUAIS":
-        st.subheader("Manuais")
-        exibir_pdf()
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
