@@ -26,7 +26,7 @@ def cat1100():
 
 
     st.write(
-        "Carregue um ou mais arquivos CAT (formato TXT) e insira a chave do produto (opcional) para ver dados do Registro.")
+        "Carregue um ou mais arquivos CAT (formato TXT) e insira a chave do produto (opcional) para visualização dos valores da cat")
 
     uploaded_files = st.file_uploader("Escolha os arquivos", type=["txt"], accept_multiple_files=True)
     chave_produto = st.text_input("Digite a chave do produto (opcional)")
