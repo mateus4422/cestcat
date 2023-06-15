@@ -68,7 +68,7 @@ def c100_c170():
 
         return df
 
-    st.title("Extrator de Registros C100 e C170")
+    st.title("Registro C100 e C170 concatenados para utilização na análise físcal")
 
     uploaded_file = st.file_uploader("Selecione o arquivo EFD (TXT e Latin-1):", type="txt")
 
