@@ -74,12 +74,13 @@ def main():
              analisefiscal()
 
     elif choice == "ALÍQUOTA":
-         st.subheader("Alíquota")
-         analise_options = ["Selecione uma opção", "Alíquota"]
-         analise_choice = st.sidebar.selectbox("ALÍQUOTA", analise_options)
+     st.subheader("Alíquota")
+     aliquota_options = ["Selecione uma opção", "Alíquota"]
+     aliquota_choice = st.sidebar.selectbox("ALÍQUOTA", aliquota_options)
 
-         if analise_choice == "Áliquota":
-             tb_aliquota()
+     if aliquota_choice == "Alíquota":
+         tb_aliquota()
+
 
  
 if __name__ == "__main__":
