@@ -41,6 +41,9 @@ def tb_produtos():
     # Importante: feche o writer ou o arquivo não será salvo
     writer.close()
 
+    # Retorne ao início do stream
+    output.seek(0)
+
     # Crie um link para baixar o dataframe
     excel_file = output.getvalue()
     b64 = base64.b64encode(excel_file)
