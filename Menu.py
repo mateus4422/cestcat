@@ -7,7 +7,6 @@ from c100_c170 import c100_c170
 from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
-from EstruturaComplementar import estruturacomplementar
 from aliquota import tb_aliquota
 
 def main():
@@ -47,15 +46,7 @@ def main():
             tb_produtos()
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
-
-    elif choice == "COMPLEMENTAR":
-        st.subheader("Complementar")
-        complementar_options = ["Estrutura Complementar - PROCFIT"]
-        complementar_choice = st.sidebar.radio("COMPLEMENTAR", complementar_options)
-
-        if complementar_choice == "Estrutura Complementar - PROCFIT":
-            estruturacomplementar()
-
+            
     elif choice == "ALÍQUOTA":
         st.subheader("Alíquota")
         aliquota_options = ["Alíquota"]
