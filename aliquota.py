@@ -16,7 +16,8 @@ def tb_aliquota():
         df = pd.read_excel(io.BytesIO(r.content), engine='openpyxl')
 
         # Remova as vírgulas da coluna 'Código de Venda'
-        df['Código de Venda'] = df['Código de Venda'].str.replace(',', '')
+        df['Código de Venda'] = df['Código de Venda'].astype(str).replace(',', '')
+
 
         st.title("Tabela de Alíquota")
 
