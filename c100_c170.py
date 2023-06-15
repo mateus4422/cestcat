@@ -79,7 +79,7 @@ def c100_c170():
         df_combined = extract_records(file_lines, "latin-1")
         df_combined = rename_columns(df_combined)
 
-        st.write("Registros C100 seguidos dos registros C170 com identificação do registro na primeira coluna e colunas renomeadas:")
+        st.write("Registro C100 e C170 concatenados para utilização na análise físcal")
         st.write(df_combined)
 
         if st.button("Exportar CSV separado por '|'"):
