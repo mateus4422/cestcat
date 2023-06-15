@@ -61,8 +61,8 @@ def cest ():
         fig.update_yaxes(title_text='MVA ST 1', tickformat='.2%')
         st.plotly_chart(fig)
 
-    st.header("Upload de arquivos")
-    st.write("Por favor, faça o upload dos arquivos que deseja pesquisar.")
+    st.header("Upload do arquivo CEST")
+    st.write("Por favor, faça o upload do arquivo que contém o CEST.")
 
     uploaded_files = st.file_uploader("Selecione os arquivos xlsx", type=["xlsx"], accept_multiple_files=True)
 
