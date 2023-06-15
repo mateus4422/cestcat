@@ -9,10 +9,11 @@ from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from EstruturaComplementar import estruturacomplementar
 from AnáliseFiscal import analisefiscal
+from Áliquota import tb_aliquota
 
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR", "ANÁLISE FISCAL"]
+    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR", "ANÁLISE FISCAL", "ALÍQUOTA"]
     choice = st.sidebar.selectbox("Menu", menu_options)
 
     if choice == "CAT":
@@ -71,6 +72,14 @@ def main():
 
          if analise_choice == "Análise Fiscal":
              analisefiscal()
+
+    elif choice == "ALÍQUOTA":
+         st.subheader("Alíquota")
+         analise_options = ["Selecione uma opção", "Alíquota"]
+         analise_choice = st.sidebar.selectbox("ALÍQUOTA", analise_options)
+
+         if analise_choice == "Áliquota":
+             tb_aliquota()
 
  
 if __name__ == "__main__":
