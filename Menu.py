@@ -9,7 +9,7 @@ from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from EstruturaComplementar import estruturacomplementar
 from AnáliseFiscal import analisefiscal
-from Áliquota import tb_aliquota
+from aliquota import tb_aliquota
 
 def main():
 
