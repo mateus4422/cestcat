@@ -65,3 +65,4 @@ zipp==3.15.0
 openpyxl 
 plotly==5.5.0
 clipboard
+xlsxwriter
