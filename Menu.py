@@ -10,7 +10,7 @@ from aliquota import tb_aliquota
 
 def main():
 
-    menu_options = ["CAT", "EFD","PRODUTOS", "COMPLEMENTAR","ALÍQUOTA"]
+    menu_options = ["CAT", "EFD","PRODUTOS","ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
