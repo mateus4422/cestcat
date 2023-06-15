@@ -2,7 +2,7 @@ import streamlit as st
 import pandas as pd
 import requests
 import io
-
+import base64
 def tb_aliquota():
     # URL do arquivo Excel
     url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Aliquota.xlsx'
