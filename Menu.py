@@ -8,30 +8,21 @@ from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from EstruturaComplementar import estruturacomplementar
-from AnáliseFiscal import analisefiscal
 from aliquota import tb_aliquota
 
 def main():
 
-    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR", "ANÁLISE FISCAL", "ALÍQUOTA"]
-    choice = st.sidebar.selectbox("Menu", menu_options)
+    menu_options = ["Selecione uma opção", "CAT", "EFD", "MANUAIS", "PRODUTOS", "COMPLEMENTAR","ALÍQUOTA"]
+    choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
-        cat_options = ["Selecione uma opção", "Registro 1100"]
-        cat_choice = st.sidebar.selectbox("CAT", cat_options)
-
-        if cat_choice == "Registro 1100":
-            st.subheader("CAT - Registro 1100")
-            cat1100()
-
-        elif cat_choice == "Outros":
-            # Adicione outras funcionalidades relacionadas ao CAT
-            pass
+        st.subheader("CAT")
+        cat1100()
 
     elif choice == "EFD":
         st.subheader("EFD")
-        efd_options = ["Selecione uma opção", "Fator de Conversão", "C100-C170"]
-        efd_choice = st.sidebar.selectbox("EFD", efd_options)
+        efd_options = ["Fator de Conversão", "C100-C170"]
+        efd_choice = st.sidebar.radio("EFD", efd_options)
 
         if efd_choice == "Fator de Conversão":
             fatorconversao()
@@ -45,43 +36,34 @@ def main():
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
-        produtos_options = ["Selecione uma opção", "Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
-        produtos_choice = st.sidebar.selectbox("PRODUTOS", produtos_options)
+        produtos_options = ["Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
+        produtos_choice = st.sidebar.radio("PRODUTOS", produtos_options)
 
         if produtos_choice == "Cest":
             cest()
         elif produtos_choice == "Inventário":
-             inventario()
+            inventario()
         elif produtos_choice == "Tabela de Produtos":
             tb_produtos()
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
 
     elif choice == "COMPLEMENTAR":
-         st.subheader("Complementar")
-         complementar_options = ["Selecione uma opção", "Estrutura Complementar - PROCFIT"]
-         complementar_choice = st.sidebar.selectbox("COMPLEMENTAR", complementar_options)
+        st.subheader("Complementar")
+        complementar_options = ["Estrutura Complementar - PROCFIT"]
+        complementar_choice = st.sidebar.radio("COMPLEMENTAR", complementar_options)
 
-         if complementar_choice == "Estrutura Complementar - PROCFIT":
-             estruturacomplementar()
-
-    elif choice == "ANÁLISE FISCAL":
-         st.subheader("Análise Fiscal")
-         analise_options = ["Selecione uma opção", "Análise Fiscal - CAT"]
-         analise_choice = st.sidebar.selectbox("ANÁLISE FISCAL", analise_options)
-
-         if analise_choice == "Análise Fiscal":
-             analisefiscal()
+        if complementar_choice == "Estrutura Complementar - PROCFIT":
+            estruturacomplementar()
 
     elif choice == "ALÍQUOTA":
-     st.subheader("Alíquota")
-     aliquota_options = ["Selecione uma opção", "Alíquota"]
-     aliquota_choice = st.sidebar.selectbox("ALÍQUOTA", aliquota_options)
+        st.subheader("Alíquota")
+        aliquota_options = ["Alíquota"]
+        aliquota_choice = st.sidebar.radio("ALÍQUOTA", aliquota_options)
 
-     if aliquota_choice == "Alíquota":
-         tb_aliquota()
+        if aliquota_choice == "Alíquota":
+            tb_aliquota()
 
 
- 
 if __name__ == "__main__":
     main()
