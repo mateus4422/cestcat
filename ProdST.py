@@ -1,8 +1,11 @@
 import streamlit as st
 import pandas as pd
+import base64
+import xlsxwriter
+import io
 
 def tb_produtos():
-# Carregue o arquivo Excel da URL
+    # Carregue o arquivo Excel da URL
     url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Planilha%20de%20Produtos.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
 
@@ -27,3 +30,21 @@ def tb_produtos():
 
     st.write(f"Resultados para COD_PRODUTO: {cod_produto}, NCM: {ncm}, e PROD_ST: {selected_prod_st}")
     st.dataframe(filtered_df)
+
+    # Crie um objeto BytesIO para salvar o dataframe
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+
+    # Escreva o dataframe para o objeto BytesIO
+    filtered_df.to_excel(writer, sheet_name='Sheet1')
+
+    # Importante: feche o writer ou o arquivo não será salvo
+    writer.close()
+
+    # Crie um link para baixar o dataframe
+    excel_file = output.getvalue()
+    b64 = base64.b64encode(excel_file)
+    dl_file = b64.decode()
+
+    href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="output.xlsx">Download Excel File</a>'
+    st.markdown(href, unsafe_allow_html=True)
