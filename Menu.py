@@ -10,20 +10,18 @@ from aliquota import tb_aliquota
 from cat import cat_detalhes
 
 def main():
-
-    menu_options = ["CAT", "EFD","PRODUTOS","ALÍQUOTA"]
+    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
         st.subheader("CAT")
         cat1_options = ["Detalhes - CAT", "Cálculo de Ressarcimento - CAT"]
-        cat1_choise =  st.sidebar.radio("CAT", cat1_options)
-   
-        if cat1_choise == "Datalhes - CAT":
-        cat_detalhes()
-      
-        elif cat1_choise == "Cálculo de Ressarcimento - CAT":
-        cat1100()
+        cat1_choice = st.sidebar.radio("CAT", cat1_options)
+
+        if cat1_choice == "Detalhes - CAT":
+            cat_detalhes()
+        elif cat1_choice == "Cálculo de Ressarcimento - CAT":
+            cat1100()
 
     elif choice == "EFD":
         st.subheader("EFD")
@@ -32,10 +30,8 @@ def main():
 
         if efd_choice == "Fator de Conversão":
             fatorconversao()
-
         elif efd_choice == "C100-C170":
             c100_c170()
-
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
@@ -50,7 +46,7 @@ def main():
             tb_produtos()
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
-            
+
     elif choice == "ALÍQUOTA":
         st.subheader("Alíquota")
         aliquota_options = ["Alíquota"]
@@ -58,7 +54,6 @@ def main():
 
         if aliquota_choice == "Alíquota":
             tb_aliquota()
-
 
 if __name__ == "__main__":
     main()
