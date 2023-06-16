@@ -12,8 +12,8 @@ def cat_detalhes():
             '1100': ['REG', 'CHV_DOC', 'DATA', 'NUM_ITEM', 'IND_OPER', 'COD_ITEM', 'CFOP', 'QTD', 'ICMS_TOT', 'VL_CONFR', 'CD_LEGAL']
         }
         return cabecalho.get(registro, [])
-    
-    
+
+
     def get_texto_fixo(registro):
         texto_fixo = {
             '0000': 'Registro "0000": Abertura do Arquivo Digital e Identificação do Contribuinte\r\r'
@@ -67,56 +67,55 @@ def cat_detalhes():
                     '**COD_LEGAL**: Código de Enquadramento Legal da hipótese de Ressarcimento ou Complemento de ICMS ST'
         }
         return texto_fixo.get(registro, '')
-    
-    
-    def main():
-        st.title("Análise de Arquivos CAT")
-    
-        file = st.file_uploader("Selecione o arquivo TXT da CAT", type='txt')
-    
-        if file:
-            content = file.read().decode('utf-8')
-    
-            # Separa as linhas do arquivo por quebra de linha
-            lines = content.split('\n')
-    
-            # Obtém os registros únicos presentes no arquivo
-            registros = set(line.split('|')[0] for line in lines)
-    
-            # Cria o filtro para selecionar um registro
-            selected_registro = st.selectbox("Selecione um registro", ['Selecione um registro'] + list(registros))
-    
-            if selected_registro != 'Selecione um registro':
-                # Cria um DataFrame vazio
-                df = pd.DataFrame()
-    
-                for line in lines:
-                    fields = line.split('|')
-                    registro = fields[0]
-                    data = fields[1:]
-    
-                    if registro == selected_registro:
-                        # Cria uma lista que inclui o registro selecionado como o primeiro elemento
-                        row = [selected_registro] + data
-    
-                        # Cria um DataFrame temporário com a linha de dados
-                        temp_df = pd.DataFrame([row], columns=get_cabecalho(selected_registro))
-    
-                        # Concatena o DataFrame temporário com o DataFrame principal
-                        df = pd.concat([df, temp_df], ignore_index=True)
-    
-                if len(df) > 0:
-                    # Exibe o DataFrame com o cabeçalho personalizado
-                    st.dataframe(df)
-    
-                    # Obtém o texto fixo correspondente ao registro selecionado
-                    texto_fixo = get_texto_fixo(selected_registro)
-    
-                    # Exibe o painel com o texto fixo
-                    st.subheader("Significado")
-                    st.markdown(texto_fixo)
-                else:
-                    st.warning("Não foram encontrados dados para o registro selecionado.")
+
+    st.title("Análise de Arquivos CAT")
+
+    file = st.file_uploader("Selecione o arquivo TXT da CAT", type='txt')
+
+    if file:
+        content = file.read().decode('utf-8')
+
+        # Separa as linhas do arquivo por quebra de linha
+        lines = content.split('\n')
+
+        # Obtém os registros únicos presentes no arquivo
+        registros = set(line.split('|')[0] for line in lines)
+
+        # Cria o filtro para selecionar um registro
+        selected_registro = st.selectbox("Selecione um registro", ['Selecione um registro'] + list(registros))
+
+        if selected_registro != 'Selecione um registro':
+            # Cria um DataFrame vazio
+            df = pd.DataFrame()
+
+            for line in lines:
+                fields = line.split('|')
+                registro = fields[0]
+                data = fields[1:]
+
+                if registro == selected_registro:
+                    # Cria uma lista que inclui o registro selecionado como o primeiro elemento
+                    row = [selected_registro] + data
+
+                    # Cria um DataFrame temporário com a linha de dados
+                    temp_df = pd.DataFrame([row], columns=get_cabecalho(selected_registro))
+
+                    # Concatena o DataFrame temporário com o DataFrame principal
+                    df = pd.concat([df, temp_df], ignore_index=True)
+
+            if len(df) > 0:
+                # Exibe o DataFrame com o cabeçalho personalizado
+                st.dataframe(df)
+
+                # Obtém o texto fixo correspondente ao registro selecionado
+                texto_fixo = get_texto_fixo(selected_registro)
+
+                # Exibe o painel com o texto fixo
+                st.subheader("Significado")
+                st.markdown(texto_fixo)
             else:
-                st.info("Selecione um registro.")
-    
+                st.warning("Não foram encontrados dados para o registro selecionado.")
+        else:
+            st.info("Selecione um registro")
+
+cat_detalhes()
