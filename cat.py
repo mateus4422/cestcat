@@ -121,7 +121,6 @@ def cat_detalhes():
                 st.info("Selecione um registro.")
     
     
-    if __name__ == "__main__":
-        main()
+ 
 
  cat_detalhes()
