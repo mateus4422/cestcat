@@ -68,8 +68,6 @@ def cat_detalhes():
         }
         return texto_fixo.get(registro, '')
 
-    st.title("Análise de Arquivos CAT")
-
     file = st.file_uploader("Selecione o arquivo TXT da CAT", type='txt')
 
     if file:
