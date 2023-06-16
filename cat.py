@@ -120,7 +120,3 @@ def cat_detalhes():
             else:
                 st.info("Selecione um registro.")
     
-    
- 
-
- cat_detalhes()
