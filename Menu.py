@@ -7,14 +7,22 @@ from Inventário import inventario
 from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from aliquota import tb_aliquota
+from cat import cat_detalhes
 
 def main():
 
     menu_options = ["CAT", "EFD","PRODUTOS","ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
-    if choice == "CAT":
+    elif choice == "CAT":
         st.subheader("CAT")
+        cat1_options = ["Detalhes - CAT", "Cálculo de Ressarcimento - CAT"]
+        cat1_choise =  st.sidebar.radio("CAT", cat1_options)
+   
+        if cat1_choise == "Datalhes - CAT":
+        cat_detalhes()
+      
+        elif cat1_choise == "Cálculo de Ressarcimento - CAT":
         cat1100()
 
     elif choice == "EFD":
