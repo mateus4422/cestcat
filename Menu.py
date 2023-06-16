@@ -10,6 +10,8 @@ from aliquota import tb_aliquota
 from cat import cat_detalhes
 
 def main():
+    st.title("Análise de Arquivos CAT")
+
     menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
@@ -54,6 +56,7 @@ def main():
 
         if aliquota_choice == "Alíquota":
             tb_aliquota()
+
 
 if __name__ == "__main__":
     main()
