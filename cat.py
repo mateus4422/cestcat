@@ -123,3 +123,5 @@ def cat_detalhes():
     
     if __name__ == "__main__":
         main()
+
+ cat_detalhes()
