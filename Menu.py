@@ -14,7 +14,7 @@ def main():
     menu_options = ["CAT", "EFD","PRODUTOS","ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
-    elif choice == "CAT":
+    if choice == "CAT":
         st.subheader("CAT")
         cat1_options = ["Detalhes - CAT", "Cálculo de Ressarcimento - CAT"]
         cat1_choise =  st.sidebar.radio("CAT", cat1_options)
