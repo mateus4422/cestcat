@@ -8,7 +8,7 @@ from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from aliquota import tb_aliquota
 from cat import cat_detalhes
-from visualização import visualizacao_cf
+from visualizacao import visualizacao_cf
 from download import download_cf
 def main():
   
