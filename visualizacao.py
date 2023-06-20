@@ -35,7 +35,7 @@ def visualizacao_cf():
         options.add_extension('ext.crx')
 
         servico - Service(ChromeDriverManager().install())
-        driver - webdriver.Chrome(service=servico)
+        driver = webdriver.Chrome(service=servico)
         driver = webdriver.Chrome(options=options)
         driver.get(f"https://nopecha.com/setup#{NOPECHA_KEY}")
         driver.maximize_window()
