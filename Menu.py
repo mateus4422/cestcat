@@ -12,7 +12,7 @@ from cat import cat_detalhes
 def main():
   
 
-    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA", "CUPOM FISCAL"]
+    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
