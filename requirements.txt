@@ -70,3 +70,4 @@ clipboard
 xlsxwriter
 webdriver_manager
 keyboard
+chromedriver==114.0
