@@ -8,11 +8,12 @@ from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from aliquota import tb_aliquota
 from cat import cat_detalhes
-
+from visualização import visualizacao_cf
+from download import download_cf
 def main():
   
 
-    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
+    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA", "CUPOM FISCAL"]
     choice = st.sidebar.radio("Menu", menu_options)
 
     if choice == "CAT":
@@ -57,6 +58,18 @@ def main():
         if aliquota_choice == "Alíquota":
             tb_aliquota()
 
+    
+    elif choice == "CUPOM FISCAL":
+        st.subheader("Cupom Fiscal")
+        cf_options = ["Visualizar CF", "Baixar CF"]
+        cf_choice = st.sidebar.radio("CUPOM FISCAL", cf_options)
 
+        if cf_choice == "Visualizar CF":
+            visualizacao_cf()
+
+        elif cf_choice == "Baixar CF":
+            download_cf()
+     
+          
 if __name__ == "__main__":
     main()
