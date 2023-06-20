@@ -4,6 +4,9 @@ from selenium import webdriver
 import time
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
+from selenium.webdriver.chrome.service import Service
+
 
 
 # Diretório das imagens
@@ -31,6 +34,8 @@ def visualizacao_cf():
             f.write(requests.get('https://nopecha.com/f/ext.crx').content)
         options.add_extension('ext.crx')
 
+        servico - Service(ChromeDriverManager().install())
+        driver - webdriver.Chrome(service=servico)
         driver = webdriver.Chrome(options=options)
         driver.get(f"https://nopecha.com/setup#{NOPECHA_KEY}")
         driver.maximize_window()
