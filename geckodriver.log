@@ -1,0 +1,2 @@
+1685104606221	geckodriver	INFO	Listening on 127.0.0.1:59061
+1685104609264	mozrunner::runner	INFO	Running command: "C:\\Program Files\\Mozilla Firefox\\firefox.exe" "--marionette" "--ignore-certificate-errors" "--remote-deb ... "--remote-allow-hosts" "localhost" "-no-remote" "-profile" "C:\\Users\\MATEUS~1\\AppData\\Local\\Temp\\rust_mozprofiledTc0rI"
