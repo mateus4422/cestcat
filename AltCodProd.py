@@ -7,9 +7,12 @@ from openpyxl import load_workbook
 def altcodprod():
     # Função para converter strings numéricas para inteiros, removendo quaisquer vírgulas
     def custom_converter(number_str):
-        if isinstance(number_str, str):
-            return int(number_str.replace(',', ''))
-        else:
+        try:
+            if isinstance(number_str, str):
+                return int(number_str.replace(',', ''))
+            else:
+                return number_str
+        except:
             return number_str
 
     # Função para ler o arquivo XLSX do link raw do GitHub
