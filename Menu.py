@@ -56,3 +56,8 @@ def main():
 
         if aliquota_choice == "Alíquota":
             tb_aliquota()
+
+
+if __name__ == "__main__":
+    main()
+
