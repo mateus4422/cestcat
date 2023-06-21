@@ -47,5 +47,12 @@ def altcodprod():
     # Exibe a tabela
     st.write(data)
 
+    # Botão de download
+    bytes_to_write = io.BytesIO()
+    with pd.ExcelWriter(bytes_to_write, engine='openpyxl') as writer:
+        data.to_excel(writer, sheet_name='Sheet1')
+    bytes_to_write.seek(0)  # retornar ao início do objeto BytesIO
+    st.download_button('Download xlsx file', bytes_to_write, file_name='output.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+
 if __name__ == "__main__":
     altcodprod()
