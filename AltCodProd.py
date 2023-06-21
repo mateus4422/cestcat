@@ -22,11 +22,14 @@ def altcodprod():
     url = "https://github.com/mateus4422/cestcat/blob/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"
     data = load_data(url)
 
+    # Remove as colunas indesejadas
+    data = data.drop(['NCM', 'Unidade', 'CEST'], axis=1)
+
     st.title("Alteração de Código do Produto")
 
     # Filtros na mesma janela da tabela
-    ncm_filter = st.text_input("Filtrar por NCM:")
-    ean_filter = st.text_input("Filtrar por EAN:")
+    venda_filter = st.text_input("Filtrar por Código de Venda:")
+    ean_filter = st.text_input("Filtrar por EAN de Compra:")
     
     # Remove vírgulas da coluna Código de Venda
     data["Código de Venda"] = data["Código de Venda"].astype(str).str.replace(',', '')
@@ -35,8 +38,8 @@ def altcodprod():
     data["Código de Compra"] = data["Código de Compra"].astype(str).str.replace(',', '')
 
     # Filtros
-    if ncm_filter:
-        data = data[data["NCM"].astype(str).str.contains(ncm_filter)]
+    if venda_filter:
+        data = data[data["Código de Venda"].astype(str).str.contains(venda_filter)]
 
     if ean_filter:
         data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
