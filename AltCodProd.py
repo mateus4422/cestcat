@@ -5,9 +5,12 @@ import requests
 from openpyxl import load_workbook
 
 def altcodprod():
-    # Função para ler o arquivo XLSX do link raw do GitHub
+    # Função para converter strings numéricas para inteiros, removendo quaisquer vírgulas
     def custom_converter(number_str):
-        return int(number_str.replace(',', ''))
+        if isinstance(number_str, str):
+            return int(number_str.replace(',', ''))
+        else:
+            return number_str
 
     # Função para ler o arquivo XLSX do link raw do GitHub
     def load_data(url):
@@ -21,9 +24,6 @@ def altcodprod():
     # Carrega os dados
     url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"
     data = load_data(url)
-
-    # Remove as colunas indesejadas
-    data = data.drop(['NCM', 'Unidade', 'CEST'], axis=1)
 
     st.title("Alteração de Código do Produto")
 
