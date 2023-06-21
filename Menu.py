@@ -1,63 +1,51 @@
 import streamlit as st
-from reg1100 import cat1100
-from cest import cest
-from efd_0220 import fatorconversao
-from c100_c170 import c100_c170
-from Inventário import inventario
-from ProdST import tb_produtos
-from AltCodProd import altcodprod
-from aliquota import tb_aliquota
-from cat import cat_detalhes
+import pandas as pd
+import io
+import requests
+from openpyxl import load_workbook
 
-def main():
-  
+def altcodprod():
+    # Função para ler o arquivo XLSX do link raw do GitHub
+    def custom_converter(number_str):
+        return int(number_str.replace(',', ''))
 
-    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
-    choice = st.sidebar.radio("Menu", menu_options)
+    # Função para ler o arquivo XLSX do link raw do GitHub
+    def load_data(url):
+        response = requests.get(url)
+        content = response.content
+        xls_file = io.BytesIO(content)
+        df = pd.read_excel(xls_file, engine="openpyxl",
+                           converters={'Código de Compra': custom_converter, 'Código de Venda': custom_converter})
+        return df
 
-    if choice == "CAT":
-        st.subheader("CAT")
-        cat1_options = ["Detalhes - CAT", "Cálculo de Ressarcimento - CAT"]
-        cat1_choice = st.sidebar.radio("CAT", cat1_options)
+    # Carrega os dados
+    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"  # use raw URL
+    data = load_data(url)
 
-        if cat1_choice == "Detalhes - CAT":
-            cat_detalhes()
-        elif cat1_choice == "Cálculo de Ressarcimento - CAT":
-            cat1100()
+    # Remove as colunas indesejadas
+    data = data.drop(['NCM', 'Unidade', 'CEST'], axis=1)
 
-    elif choice == "EFD":
-        st.subheader("EFD")
-        efd_options = ["Fator de Conversão", "C100-C170"]
-        efd_choice = st.sidebar.radio("EFD", efd_options)
+    st.title("Alteração de Código do Produto")
 
-        if efd_choice == "Fator de Conversão":
-            fatorconversao()
-        elif efd_choice == "C100-C170":
-            c100_c170()
+    # Filtros na mesma janela da tabela
+    venda_filter = st.text_input("Filtrar por Código de Venda:")
+    ean_filter = st.text_input("Filtrar por EAN de Compra:")
+    
+    # Remove vírgulas da coluna Código de Venda
+    data["Código de Venda"] = data["Código de Venda"].astype(str).str.replace(',', '')
 
-    elif choice == "PRODUTOS":
-        st.subheader("Produtos")
-        produtos_options = ["Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
-        produtos_choice = st.sidebar.radio("PRODUTOS", produtos_options)
+    # Remove vírgulas da coluna Código de Compra
+    data["Código de Compra"] = data["Código de Compra"].astype(str).str.replace(',', '')
 
-        if produtos_choice == "Cest":
-            cest()
-        elif produtos_choice == "Inventário":
-            inventario()
-        elif produtos_choice == "Tabela de Produtos":
-            tb_produtos()
-        elif produtos_choice == "Tabela de Alteração de Código":
-            altcodprod()
+    # Filtros
+    if venda_filter:
+        data = data[data["Código de Venda"].astype(str).str.contains(venda_filter)]
 
-    elif choice == "ALÍQUOTA":
-        st.subheader("Alíquota")
-        aliquota_options = ["Alíquota"]
-        aliquota_choice = st.sidebar.radio("ALÍQUOTA", aliquota_options)
+    if ean_filter:
+        data = data[data["EAN de Compra"].astype(str).str.contains(ean_filter)]
 
-        if aliquota_choice == "Alíquota":
-            tb_aliquota()
+    # Exibe a tabela
+    st.write(data)
 
-     
-          
 if __name__ == "__main__":
-    main()
+    altcodprod()
