@@ -19,7 +19,7 @@ def altcodprod():
         return df
 
     # Carrega os dados
-    url = "https://github.com/mateus4422/cestcat/blob/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"
+    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"
     data = load_data(url)
 
     # Remove as colunas indesejadas
