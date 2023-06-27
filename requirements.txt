@@ -68,4 +68,5 @@ openpyxl
 plotly==5.5.0
 clipboard
 xlsxwriter
+mysql-connector-python
 
