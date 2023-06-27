@@ -10,7 +10,7 @@ from aliquota import tb_aliquota
 from cat import cat_detalhes
 
 def main():
-    altcodprod()  # Chama altcodprod() antes do menu principal
+
 
     menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
