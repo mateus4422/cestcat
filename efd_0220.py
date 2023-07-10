@@ -36,15 +36,28 @@ def fatorconversao():
             line = line.decode('latin-1').strip()
 
             if line.startswith('|0200|'):
+                if current_0200 is not None:
+                    # Adicionar campos adicionais do 0200 (COD_NCM e CEST) apenas se o registro 0220 estiver presente
+                    if has_0220:
+                        current_0200.extend(['', '', current_0220[4], current_0220[5]])
+                    else:
+                        # Adicionar campos adicionais vazios se não houver registro 0220
+                        current_0200.extend(['', '', '', ''])
+                    data.append(current_0200)
                 current_0200 = line.split('|')
                 has_0220 = False
 
             elif line.startswith('|0220|'):
                 has_0220 = True
                 current_0220 = line.split('|')
-                if current_0200 is not None:
-                    # Adicionar campos adicionais do 0200 (COD_NCM e CEST)
-                    current_0200.extend(['', '', current_0220[4], current_0220[5]])
+
+        # Adicionar o último registro 0200 do arquivo
+        if current_0200 is not None:
+            if has_0220:
+                current_0200.extend(['', '', current_0220[4], current_0220[5]])
+            else:
+                current_0200.extend(['', '', '', ''])
+            data.append(current_0200)
 
         df = pd.DataFrame(data)
 
