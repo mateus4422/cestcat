@@ -52,7 +52,7 @@ def fatorconversao():
         df = df.drop(columns=columns_to_drop)
 
         # Renomear as colunas
-        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 6: 'NCM', 8: 'CEST', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
+        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 6: 'NCM', 8: 'NCM', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
         df = df.rename(columns=column_names)
 
         return df
