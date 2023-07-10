@@ -5,11 +5,6 @@ import chardet
 import base64
 import random
 
-def my_func():
-    for i in range(10):
-        unique_id = random.randint(0, 1000)
-        st.slider(f"Slider {unique_id}", 0, 10)
-        
 def fatorconversao():
     def download_link_csv(df, filename, link_text):
         csv = df.to_csv(index=False, encoding='utf-8')
@@ -30,9 +25,6 @@ def fatorconversao():
         # Converter para latin-1 se necessário
         if char_encoding != 'latin-1':
             file_content = file_content.decode(char_encoding, errors='ignore').encode('utf-8')
-
-
-
 
         file_like = io.BytesIO(file_content)
         lines = file_like.readlines()
@@ -71,25 +63,29 @@ def fatorconversao():
                                       accept_multiple_files=True)
 
     if uploaded_files:
+        df_combined_list = []  # Lista para armazenar os dataframes de cada arquivo
+
         for uploaded_file in uploaded_files:
-            df = read_efd_file(uploaded_file)
-            if not df.empty:
-                product_filter = st.text_input(
-                    f"Digite o código do produto para filtrar no arquivo {uploaded_file.name}:")
+            df_combined_list.append(read_efd_file(uploaded_file))  # Adicionar cada dataframe à lista
+
+        if df_combined_list:
+            df_combined = pd.concat(df_combined_list, ignore_index=True)  # Concatenar os dataframes em um único dataframe
+
+            if not df_combined.empty:
+                product_filter = st.text_input("Digite o código do produto para filtrar:")
                 if product_filter:
-                    filtered_df = df[df['COD_PRODUTO'].str.contains(product_filter)]
+                    filtered_df = df_combined[df_combined['COD_PRODUTO'].str.contains(product_filter)]
                     st.dataframe(filtered_df)
                     if not filtered_df.empty:
-                        st.markdown(download_link_csv(filtered_df, f'tabela_filtrada_{uploaded_file.name}.csv',
+                        st.markdown(download_link_csv(filtered_df, 'tabela_filtrada.csv',
                                                       'Clique aqui para baixar a tabela filtrada em CSV'),
                                     unsafe_allow_html=True)
                 else:
-                    st.dataframe(df)
-                    st.markdown(download_link_csv(df, f'tabela_exportada_{uploaded_file.name}.csv',
+                    st.dataframe(df_combined)
+                    st.markdown(download_link_csv(df_combined, 'tabela_exportada.csv',
                                                   'Clique aqui para baixar a tabela em CSV'),
                                 unsafe_allow_html=True)
             else:
-                st.write(f'Não foram encontrados registros |0200| e |0220| no arquivo {uploaded_file.name}.')
-
+                st.write('Não foram encontrados registros |0200| e |0220| nos arquivos selecionados.')
 
 fatorconversao()
