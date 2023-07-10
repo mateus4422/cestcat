@@ -43,16 +43,18 @@ def fatorconversao():
                 has_0220 = True
                 current_0220 = line.split('|')
                 if current_0200 is not None:
+                    current_0200[6] = current_0220[4]  # Atualiza a coluna 'NCM'
+                    current_0200[8] = current_0220[5]  # Atualiza a coluna 'CEST'
                     data.append(current_0200 + current_0220)
 
         df = pd.DataFrame(data)
 
         # Excluir as colunas especificadas
-        columns_to_drop = [0, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 19, 6]
+        columns_to_drop = [0, 5, 7, 9, 10, 11, 12, 13, 14, 15, 19]
         df = df.drop(columns=columns_to_drop)
 
         # Renomear as colunas
-        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
+        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 6: 'NCM', 8: 'CEST', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
         df = df.rename(columns=column_names)
 
         return df
