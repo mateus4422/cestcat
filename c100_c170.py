@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import io
 import base64
+import os
+import tempfile
 
 def c100_c170():
     def extract_records(file, encoding):
@@ -68,23 +70,37 @@ def c100_c170():
 
         return df
 
-    st.title("Registro C100 e C170 concatenados para utilização na análise físcal")
+    st.title("Registro C100 e C170 concatenados para utilização na análise fiscal")
 
-    uploaded_file = st.file_uploader("Selecione o arquivo EFD (TXT e Latin-1):", type="txt")
+    uploaded_files = st.file_uploader("Selecione os arquivos EFD (TXT e Latin-1):", type="txt", accept_multiple_files=True)
 
-    if uploaded_file is not None:
-        file_bytes = io.BytesIO(uploaded_file.getbuffer())
-        file_text = file_bytes.read().decode("latin-1")
-        file_lines = file_text.splitlines()
-        df_combined = extract_records(file_lines, "latin-1")
-        df_combined = rename_columns(df_combined)
+    if uploaded_files:
+        df_combined_list = []
+        for uploaded_file in uploaded_files:
+            file_bytes = io.BytesIO(uploaded_file.getbuffer())
+            file_text = file_bytes.read().decode("latin-1")
+            file_lines = file_text.splitlines()
+            df_combined = extract_records(file_lines, "latin-1")
+            df_combined = rename_columns(df_combined)
+            df_combined_list.append(df_combined)
 
-        st.write("Registro C100 e C170 concatenados para utilização na análise físcal")
-        st.write(df_combined)
+        if df_combined_list:
+            df_combined = pd.concat(df_combined_list, ignore_index=True)
+            st.write("Registro C100 e C170 concatenados para utilização na análise fiscal")
+            st.write(df_combined)
 
-        if st.button("Exportar CSV separado por '|'"):
-            # Exporta o dataframe como um arquivo CSV separado por ';'
-            csv = df_combined.to_csv(index=False, sep=";", encoding="utf-8-sig")
-            b64 = base64.b64encode(csv.encode()).decode()
-            href = f'<a href="data:file/csv;base64,{b64}" download="dados.csv">Download do arquivo CSV</a>'
-            st.markdown(href, unsafe_allow_html=True)
+            if st.button("Exportar CSV separado por '|'"):
+                # Exportar o dataframe como um arquivo CSV separado por ';'
+                csv = df_combined.to_csv(index=False, sep=";", encoding="utf-8-sig")
+                b64 = base64.b64encode(csv.encode()).decode()
+                href = f'<a href="data:file/csv;base64,{b64}" download="dados.csv">Download do arquivo CSV</a>'
+                st.markdown(href, unsafe_allow_html=True)
+
+            if st.button("Exportar XLSX"):
+                # Exportar o dataframe como um arquivo XLSX
+                with tempfile.NamedTemporaryFile(delete=False) as tmp:
+                    filepath = tmp.name + ".xlsx"
+                df_combined.to_excel(filepath, index=False, encoding="utf-8-sig")
+                st.download_button("Download do arquivo XLSX", filepath)
+
+c100_c170()
