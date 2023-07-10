@@ -5,11 +5,6 @@ import chardet
 import base64
 import random
 
-def my_func():
-    for i in range(10):
-        unique_id = random.randint(0, 1000)
-        st.slider(f"Slider {unique_id}", 0, 10)
-        
 def fatorconversao():
     def download_link_csv(df, filename, link_text):
         csv = df.to_csv(index=False, encoding='utf-8')
@@ -31,9 +26,6 @@ def fatorconversao():
         if char_encoding != 'latin-1':
             file_content = file_content.decode(char_encoding, errors='ignore').encode('utf-8')
 
-
-
-
         file_like = io.BytesIO(file_content)
         lines = file_like.readlines()
         data = []
@@ -51,7 +43,8 @@ def fatorconversao():
                 has_0220 = True
                 current_0220 = line.split('|')
                 if current_0200 is not None:
-                    data.append(current_0200 + current_0220)
+                    # Adicionar campos adicionais do 0200 (COD_NCM e CEST)
+                    current_0200.extend(['', '', current_0220[4], current_0220[5]])
 
         df = pd.DataFrame(data)
 
@@ -60,7 +53,8 @@ def fatorconversao():
         df = df.drop(columns=columns_to_drop)
 
         # Renomear as colunas
-        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
+        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR',
+                        20: 'COD_NCM', 21: 'CEST'}
         df = df.rename(columns=column_names)
 
         return df
@@ -90,6 +84,5 @@ def fatorconversao():
                                 unsafe_allow_html=True)
             else:
                 st.write(f'Não foram encontrados registros |0200| e |0220| no arquivo {uploaded_file.name}.')
-
 
 fatorconversao()
