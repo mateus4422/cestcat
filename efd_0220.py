@@ -30,22 +30,15 @@ def fatorconversao():
         lines = file_like.readlines()
         data = []
         current_0200 = None
-        has_0220 = False
 
         for line in lines:
             line = line.decode('latin-1').strip()
 
             if line.startswith('|0200|'):
                 current_0200 = line.split('|')
-                has_0220 = False
-
-            elif line.startswith('|0220|'):
-                has_0220 = True
-                current_0220 = line.split('|')
-                if current_0200 is not None:
-                    current_0200[6] = current_0220[4]  # Atualiza a coluna 'NCM'
-                    current_0200[8] = current_0220[5]  # Atualiza a coluna 'CEST'
-                    data.append(current_0200 + current_0220)
+                current_0200[6] = ''  # Adiciona valor vazio à coluna 'NCM'
+                current_0200[8] = ''  # Adiciona valor vazio à coluna 'CEST'
+                data.append(current_0200)
 
         df = pd.DataFrame(data)
 
@@ -88,6 +81,6 @@ def fatorconversao():
                                                   'Clique aqui para baixar a tabela em CSV'),
                                 unsafe_allow_html=True)
             else:
-                st.write('Não foram encontrados registros |0200| e |0220| nos arquivos selecionados.')
+                st.write('Não foram encontrados registros |0200| nos arquivos selecionados.')
 
 fatorconversao()
