@@ -30,24 +30,29 @@ def fatorconversao():
         lines = file_like.readlines()
         data = []
         current_0200 = None
+        has_0220 = False
 
         for line in lines:
             line = line.decode('latin-1').strip()
 
             if line.startswith('|0200|'):
                 current_0200 = line.split('|')
-                current_0200[6] = ''  # Adiciona valor vazio à coluna 'NCM'
-                current_0200[8] = ''  # Adiciona valor vazio à coluna 'CEST'
-                data.append(current_0200)
+                has_0220 = False
+
+            elif line.startswith('|0220|'):
+                has_0220 = True
+                current_0220 = line.split('|')
+                if current_0200 is not None:
+                    data.append(current_0200 + current_0220)
 
         df = pd.DataFrame(data)
 
         # Excluir as colunas especificadas
-        columns_to_drop = [0, 5, 7, 9, 10, 11, 12, 13, 14, 15, 19]
+        columns_to_drop = [0, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 19, 6]
         df = df.drop(columns=columns_to_drop)
 
         # Renomear as colunas
-        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 6: 'NCM', 8: 'CEST', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
+        column_names = {1: 'REG', 2: 'COD_PRODUTO', 3: 'DESCRIÇÃO', 16: 'REG2', 17: 'UNIDADE', 18: 'FATOR'}
         df = df.rename(columns=column_names)
 
         return df
@@ -81,6 +86,6 @@ def fatorconversao():
                                                   'Clique aqui para baixar a tabela em CSV'),
                                 unsafe_allow_html=True)
             else:
-                st.write('Não foram encontrados registros |0200| nos arquivos selecionados.')
+                st.write('Não foram encontrados registros |0200| e |0220| nos arquivos selecionados.')
 
 fatorconversao()
