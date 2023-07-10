@@ -48,7 +48,7 @@ def fatorconversao():
         df = pd.DataFrame(data)
 
         # Excluir as colunas especificadas
-        columns_to_drop = [0, 5, 7, 8, 9, 10, 11, 12, 13, 14, 15, 4, 19, 6]
+        columns_to_drop = [0, 5, 7, 9, 10, 11, 12, 13, 14, 15, 4, 19, 6]
         df = df.drop(columns=columns_to_drop)
 
         # Renomear as colunas
