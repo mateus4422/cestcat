@@ -5,7 +5,7 @@ from io import BytesIO
 
 def fatorconv():
     # Link para o arquivo Excel hospedado no GitHub (Raw)
-    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Fator%20de%20convers%C3%A3o.xlsx"
+    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx"
 
     # Baixar o arquivo Excel usando requests
     response = requests.get(url)
