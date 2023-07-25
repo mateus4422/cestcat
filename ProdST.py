@@ -1,15 +1,14 @@
 import streamlit as st
 import pandas as pd
 import base64
-import xlsxwriter
 import io
 
-def tb_produtos():
+def main():
     # Carregue o arquivo Excel da URL
-    url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Planilha%20de%20Produtos.xlsx'
+    url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20Produtos_OFICIAL.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
 
-    st.title("Tabela de Produtos")
+    st.title("Visualização da Tabela de Produtos")
 
     # Filtro para pesquisar por Código do Produto (COD_PRODUTO)
     cod_produto = st.text_input("Digite o código do produto (COD_PRODUTO):")
@@ -42,8 +41,8 @@ def tb_produtos():
     b64 = base64.b64encode(excel_file)
     dl_file = b64.decode()
 
-    href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="output.xlsx">Download Excel File</a>'
+    href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="Tabela_de_Produtos.xlsx">Baixar o Arquivo</a>'
     st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    tb_produtos()
+    main()
