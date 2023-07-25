@@ -4,8 +4,8 @@ import base64
 import io
 
 def tb_produtos():
-    # Carregue o arquivo Excel da URL
-    url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20Produtos_OFICIAL.xlsx'
+    # Carregue o arquivo Excel da URL correta
+    url = 'https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Tabela%20de%20Produtos_OFICIAL.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
 
     st.title("Visualização da Tabela de Produtos")
