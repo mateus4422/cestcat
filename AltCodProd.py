@@ -2,6 +2,8 @@ import streamlit as st
 import pandas as pd
 import requests
 import io 
+from openpyxl import load_workbook
+
 
 def altcodprod():
     # Função para converter strings numéricas para inteiros, removendo quaisquer vírgulas
