@@ -28,6 +28,10 @@ def tb_produtos():
     # Filtrar o dataframe usando o valor selecionado
     filtered_df = filtered_df[filtered_df['PROD_ST'] == selected_prod_st]
 
+    # Selecionar apenas as colunas desejadas
+    columns_to_display = ['Código do Produto', 'ANVISA', 'Descrição', 'NCM', 'CEST', 'Aliquota', 'MVA', 'Cesta Básica']
+    filtered_df = filtered_df[columns_to_display]
+
     st.write(f"Resultados para COD_PRODUTO: {cod_produto}, NCM: {ncm}, e PROD_ST: {selected_prod_st}")
     st.dataframe(filtered_df)
 
@@ -51,3 +55,6 @@ def tb_produtos():
 
     href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="output.xlsx">Download Excel File</a>'
     st.markdown(href, unsafe_allow_html=True)
+
+if __name__ == "__main__":
+    tb_produtos()
