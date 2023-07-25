@@ -12,7 +12,6 @@ from fatorconversao import fatorconv
 
 def main():
 
-
     menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
     choice = st.sidebar.radio("Menu", menu_options)
 
@@ -49,7 +48,7 @@ def main():
             tb_produtos()
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
-        elif produtos_choise == "Fator de Conversão":
+        elif produtos_choice == "Fator de Conversão":
             fatorconv()
 
     elif choice == "ALÍQUOTA":
