@@ -13,6 +13,10 @@ def tb_produtos():
     # Filtro para pesquisar por Código do Produto (COD_PRODUTO)
     cod_produto = st.text_input("Digite o código do produto (COD_PRODUTO):")
 
+    # Remover vírgulas das colunas "Código do Produto" e "ANVISA"
+    df['Código do Produto'] = df['Código do Produto'].astype(str).str.replace(',', '')
+    df['ANVISA'] = df['ANVISA'].astype(str).str.replace(',', '')
+
     # Filtrar o dataframe com base no Código do Produto inserido
     filtered_df = df[df['Código do Produto'].astype(str).str.contains(cod_produto)]
 
