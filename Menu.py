@@ -1,63 +1,48 @@
 import streamlit as st
-from reg1100 import cat1100
-from cest import cest
-from efd_0220 import fatorconversao
-from c100_c170 import c100_c170
-from Inventário import inventario
-from ProdST import tb_produtos
-from AltCodProd import altcodprod
-from aliquota import tb_aliquota
-from cat import cat_detalhes
+import pandas as pd
+import base64
+import io
 
-def main():
+def fatorconv():
+    # Carregue o arquivo Excel da URL
+    url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Fator%20de%20convers%C3%A3o.xlsx'
+    df = pd.read_excel(url, engine='openpyxl')
 
+    st.title("Fator de Conversão")
 
-    menu_options = ["CAT", "EFD", "PRODUTOS", "ALÍQUOTA"]
-    choice = st.sidebar.radio("Menu", menu_options)
+    # Filtro para pesquisar por Código do Produto
+    cod_produto = st.text_input("Digite o código do produto (Código do Produto):")
 
-    if choice == "CAT":
-        st.subheader("CAT")
-        cat1_options = ["Detalhes - CAT", "Cálculo de Ressarcimento - CAT"]
-        cat1_choice = st.sidebar.radio("CAT", cat1_options)
+    # Filtrar o dataframe com base no Código do Produto inserido
+    filtered_df = df[df['Código do Produto'].astype(str).str.contains(cod_produto)]
 
-        if cat1_choice == "Detalhes - CAT":
-            cat_detalhes()
-        elif cat1_choice == "Cálculo de Ressarcimento - CAT":
-            cat1100()
+    # Selecionar apenas as colunas desejadas
+    columns_to_display = ['Código do Produto', 'Descrição', 'unimed', 'Fator', 'NCM', 'Produto ST']
+    filtered_df = filtered_df[columns_to_display]
 
-    elif choice == "EFD":
-        st.subheader("EFD")
-        efd_options = ["Fator de Conversão", "C100-C170"]
-        efd_choice = st.sidebar.radio("EFD", efd_options)
+    st.write(f"Resultados para Código do Produto: {cod_produto}")
+    st.dataframe(filtered_df)
 
-        if efd_choice == "Fator de Conversão":
-            fatorconversao()
-        elif efd_choice == "C100-C170":
-            c100_c170()
+    # Crie um objeto BytesIO para salvar o dataframe
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
 
-    elif choice == "PRODUTOS":
-        st.subheader("Produtos")
-        produtos_options = ["Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código", "Fator de Conversão"]
-        produtos_choice = st.sidebar.radio("PRODUTOS", produtos_options)
+    # Escreva o dataframe para o objeto BytesIO
+    filtered_df.to_excel(writer, sheet_name='Sheet1', index=False)
 
-        if produtos_choice == "Cest":
-            cest()
-        elif produtos_choice == "Inventário":
-            inventario()
-        elif produtos_choice == "Tabela de Produtos":
-            tb_produtos()
-        elif produtos_choice == "Tabela de Alteração de Código":
-            altcodprod()
-        elif produtos_choise == "Fator de Conversão":
-            fatorconv()
+    # Importante: feche o writer ou o arquivo não será salvo
+    writer.close()
 
-    elif choice == "ALÍQUOTA":
-        st.subheader("Alíquota")
-        aliquota_options = ["Alíquota"]
-        aliquota_choice = st.sidebar.radio("ALÍQUOTA", aliquota_options)
+    # Retorne ao início do stream
+    output.seek(0)
 
-        if aliquota_choice == "Alíquota":
-            tb_aliquota()
+    # Crie um link para baixar o dataframe
+    excel_file = output.getvalue()
+    b64 = base64.b64encode(excel_file)
+    dl_file = b64.decode()
+
+    href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="Fator_de_Conversao.xlsx">Baixar o Arquivo</a>'
+    st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
-    main()
+    fatorconv()
