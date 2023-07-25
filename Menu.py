@@ -8,7 +8,7 @@ from ProdST import tb_produtos
 from AltCodProd import altcodprod
 from aliquota import tb_aliquota
 from cat import cat_detalhes
-from fatorconversao import fatorconv
+
 
 def main():
 
