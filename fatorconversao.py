@@ -3,7 +3,8 @@ import pandas as pd
 
 def fatorconv():
     # Link para o arquivo Excel hospedado no GitHub
-    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Fator%20de%20convers%C3%A3o.xlsx"
+    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx
+"
 
     # Carregar o arquivo Excel em um DataFrame
     df = pd.read_excel(url)
