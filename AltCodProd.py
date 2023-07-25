@@ -1,6 +1,7 @@
 import streamlit as st
 import pandas as pd
 import requests
+import io 
 
 def altcodprod():
     # Função para converter strings numéricas para inteiros, removendo quaisquer vírgulas
