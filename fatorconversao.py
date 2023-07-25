@@ -1,14 +1,13 @@
 import streamlit as st
 import pandas as pd
+import base64
+import io
 
 def fatorconv():
-    # Link para o arquivo Excel hospedado no GitHub
-    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx"
+    # Carregue o arquivo Excel da URL correta
+    url = 'https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx'
+    df = pd.read_excel(url, engine='openpyxl')
 
-    # Carregar o arquivo Excel em um DataFrame
-    df = pd.read_excel(url)
-
-    # Título do aplicativo
     st.title("Fator de Conversão")
 
     # Input para o filtro no "Código do Produto"
@@ -19,7 +18,7 @@ def fatorconv():
         df_filtered = df[df["Código do Produto"] == codigo_produto]
         if not df_filtered.empty:
             st.write("Resultados:")
-            st.write(df_filtered)
+            st.dataframe(df_filtered)  # Usamos st.dataframe para exibir o DataFrame
         else:
             st.warning("Nenhum resultado encontrado para o código do produto fornecido.")
     else:
