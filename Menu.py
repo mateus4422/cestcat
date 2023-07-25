@@ -46,7 +46,7 @@ def main():
             inventario()
         elif produtos_choice == "Tabela de Produtos":
             tb_produtos()
-        elif produtos_choice == "Tabela de Alteração de Código":
+        elif produtos_choice == "Tabela de Conversão de Código":
             altcodprod()
         elif produtos_choice == "Fator de Conversão":
             fatorconv()
