@@ -1,30 +1,48 @@
 import streamlit as st
 import pandas as pd
+import base64
+import io
 
 def fatorconv():
-    # Link para o arquivo Excel hospedado no GitHub (Raw)
-    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx"
-
-    # Carregar o arquivo Excel em um DataFrame
+    # Carregue o arquivo Excel da URL correta
+    url = 'https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
 
     st.title("Fator de Conversão")
 
-    # Exibir o DataFrame completo
-    st.write("DataFrame Completo:")
-    st.dataframe(df)
+    # Filtro para pesquisar por Código do Produto
+    cod_produto = st.text_input("Digite o código do produto para filtrar:")
 
-    # Input para o filtro no "Código do Produto"
-    codigo_produto = st.text_input("Digite o Código do Produto para ver detalhes específicos:")
+    # Filtrar o dataframe com base no Código do Produto inserido
+    filtered_df = df[df['Código do Produto'].astype(str).str.contains(cod_produto, case=False)]
 
-    # Filtrar o DataFrame com base no Código do Produto
-    if codigo_produto:
-        df_filtered = df[df["Código do Produto"].astype(str).str.contains(codigo_produto)]
-        if not df_filtered.empty:
-            st.write(f"Detalhes para o Código do Produto: {codigo_produto}")
-            st.dataframe(df_filtered)
-        else:
-            st.warning("Nenhum resultado encontrado para o código do produto fornecido.")
+    # Selecionar apenas as colunas desejadas
+    columns_to_display = ['Código do Produto', 'Descrição', 'unimed', 'Fator', 'NCM', 'Produto ST']
+    filtered_df = filtered_df[columns_to_display]
+
+    st.write(f"Resultados para Código do Produto: {cod_produto}")
+    st.dataframe(filtered_df)
+
+    # Crie um objeto BytesIO para salvar o dataframe
+    output = io.BytesIO()
+    writer = pd.ExcelWriter(output, engine='xlsxwriter')
+
+    # Escreva o dataframe para o objeto BytesIO
+    filtered_df.to_excel(writer, sheet_name='Sheet1', index=False)
+
+    # Importante: feche o writer ou o arquivo não será salvo
+    writer.close()
+
+    # Retorne ao início do stream
+    output.seek(0)
+
+    # Crie um link para baixar o dataframe
+    excel_file = output.getvalue()
+    b64 = base64.b64encode(excel_file)
+    dl_file = b64.decode()
+
+    href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="Fator_de_Conversao.xlsx">Baixar o Arquivo</a>'
+    st.markdown(href, unsafe_allow_html=True)
 
 if __name__ == "__main__":
     fatorconv()
