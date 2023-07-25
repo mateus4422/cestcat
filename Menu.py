@@ -48,6 +48,8 @@ def main():
             tb_produtos()
         elif produtos_choice == "Tabela de Alteração de Código":
             altcodprod()
+        elif produtos_choise == "Fator de Conversão":
+            fatorconv()
 
     elif choice == "ALÍQUOTA":
         st.subheader("Alíquota")
