@@ -1,8 +1,6 @@
 import streamlit as st
 import pandas as pd
-import io
 import requests
-from openpyxl import load_workbook
 
 def altcodprod():
     # Função para converter strings numéricas para inteiros, removendo quaisquer vírgulas
@@ -15,17 +13,18 @@ def altcodprod():
     # Função para ler o arquivo XLSX do link raw do GitHub
     def load_data(url):
         response = requests.get(url)
-        content = response.content
-        xls_file = io.BytesIO(content)
-        df = pd.read_excel(xls_file, engine="openpyxl",
+        with open('conversao_codigo.xlsx', 'wb') as f:
+            f.write(response.content)
+        df = pd.read_excel('conversao_codigo.xlsx', engine="openpyxl",
                            converters={'Código de Compra': custom_converter, 'Código de Venda': custom_converter})
         return df
 
     # Carrega os dados
-    url = "https://github.com/mateus4422/cestcat/blob/cestcat/Convers%C3%A3o%20de%20C%C3%B3digo.xlsx"
+    url = "https://github.com/mateus4422/cestcat/raw/cestcat/Convers%C3%A3o%20de%20C%C3%B3digo.xlsx"
     data = load_data(url)
 
     st.title("Alteração de Código do Produto")
+
 
     # Filtros na mesma janela da tabela
     venda_filter = st.text_input("Filtrar por Código de Venda:")
