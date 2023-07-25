@@ -44,5 +44,4 @@ def fatorconv():
     href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="Fator_de_Conversao.xlsx">Baixar o Arquivo</a>'
     st.markdown(href, unsafe_allow_html=True)
 
-if __name__ == "__main__":
     fatorconv()
