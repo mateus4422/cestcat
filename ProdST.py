@@ -3,7 +3,7 @@ import pandas as pd
 import base64
 import io
 
-def main():
+def tb_produtos():
     # Carregue o arquivo Excel da URL
     url = 'https://github.com/mateus4422/cestcat/raw/cestcat/Tabela%20de%20Produtos_OFICIAL.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
@@ -44,5 +44,4 @@ def main():
     href = f'<a href="data:application/octet-stream;base64,{dl_file}" download="Tabela_de_Produtos.xlsx">Baixar o Arquivo</a>'
     st.markdown(href, unsafe_allow_html=True)
 
-if __name__ == "__main__":
-    main()
+tb_produtos()
