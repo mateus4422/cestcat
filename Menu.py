@@ -37,7 +37,7 @@ def main():
 
     elif choice == "PRODUTOS":
         st.subheader("Produtos")
-        produtos_options = ["Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código"]
+        produtos_options = ["Cest", "Inventário", "Tabela de Produtos", "Tabela de Alteração de Código", "Fator de Conversão"]
         produtos_choice = st.sidebar.radio("PRODUTOS", produtos_options)
 
         if produtos_choice == "Cest":
