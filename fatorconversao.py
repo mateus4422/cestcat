@@ -5,7 +5,7 @@ import io
 
 def fatorconv():
     # Carregue o arquivo Excel da URL correta
-    url = 'https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Fator%20de%20convers%C3%A3o.xlsx'
+    url = 'https://github.com/mateus4422/cestcat/blob/cestcat/Fator%20de%20convers%C3%A3o.xlsx'
     df = pd.read_excel(url, engine='openpyxl')
 
     st.title("Fator de Conversão")
