@@ -14,7 +14,7 @@ def fatorconv():
     cod_produto = st.text_input("Digite o código do produto (Código do Produto):")
 
     # Filtrar o dataframe com base no Código do Produto inserido
-    filtered_df = df[df['Código Produto'].astype(str).str.contains(cod_produto)]
+    filtered_df = df[df['Código do Produto'].astype(str).str.contains(cod_produto)]
 
     # Selecionar apenas as colunas desejadas
     columns_to_display = ['Código do Produto', 'Descrição', 'unimed', 'Fator', 'NCM', 'Produto ST']
