@@ -22,14 +22,15 @@ def altcodprod():
         return df
 
     # Carrega os dados
-    url = "https://raw.githubusercontent.com/mateus4422/cestcat/cestcat/Tabela%20de%20c%C3%B3digo.xlsx"
+    url = "https://github.com/mateus4422/cestcat/blob/cestcat/Convers%C3%A3o%20de%20C%C3%B3digo.xlsx"
     data = load_data(url)
 
     st.title("Alteração de Código do Produto")
 
     # Filtros na mesma janela da tabela
     venda_filter = st.text_input("Filtrar por Código de Venda:")
-    ean_filter = st.text_input("Filtrar por EAN de Compra:")
+    compra_filter = st.text_input("Filtrar por Código de Compra:")
+    ean_filter = st.text_input("Filtrar por EAN:")
     
     # Remove vírgulas da coluna Código de Venda
     data["Código de Venda"] = data["Código de Venda"].astype(str).str.replace(',', '')
@@ -52,7 +53,7 @@ def altcodprod():
     with pd.ExcelWriter(bytes_to_write, engine='openpyxl') as writer:
         data.to_excel(writer, sheet_name='Sheet1')
     bytes_to_write.seek(0)  # retornar ao início do objeto BytesIO
-    st.download_button('Download xlsx file', bytes_to_write, file_name='output.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
+    st.download_button('Download xlsx file', bytes_to_write, file_name='conversao_codigo.xlsx', mime='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet')
 
 if __name__ == "__main__":
     altcodprod()
